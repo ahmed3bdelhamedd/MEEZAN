@@ -22,10 +22,7 @@
             padding: 30px;
             color: var(--text-main);
         }
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        .dashboard-container { max-width: 1400px; margin: 0 auto; }
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -52,15 +49,8 @@
         }
         .filter-box label { font-weight: 600; font-size: 14px; }
         .filter-box select {
-            background: white;
-            color: var(--text-main);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            outline: none;
+            background: white; color: var(--text-main); border: none; padding: 8px 15px;
+            border-radius: 6px; font-family: 'Cairo', sans-serif; font-weight: 700; cursor: pointer; outline: none;
         }
         .kpi-grid {
             display: grid;
@@ -69,11 +59,8 @@
             margin-bottom: 30px;
         }
         .kpi-card {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            border-right: 6px solid var(--primary);
+            background: var(--card-bg); padding: 24px; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border-right: 6px solid var(--primary);
             transition: transform 0.2s ease;
         }
         .kpi-card:hover { transform: translateY(-4px); }
@@ -81,24 +68,22 @@
         .kpi-card .value { font-size: 24px; font-weight: 900; margin: 12px 0 0 0; color: var(--primary); }
         .charts-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 25px;
+            margin-bottom: 25px;
         }
-        @media(max-width: 1024px) { .charts-grid { grid-template-columns: 1fr; } }
         .chart-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
+            background: var(--card-bg); padding: 25px; border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
+        .chart-card.full-width { grid-column: span 2; }
+        @media(max-width: 1024px) { 
+            .charts-grid { grid-template-columns: 1fr; }
+            .chart-card.full-width { grid-column: span 1; }
+        }
         .chart-card h2 {
-            font-size: 16px;
-            color: var(--primary);
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: 700;
-            border-bottom: 2px solid #F1F5F9;
-            padding-bottom: 12px;
+            font-size: 16px; color: var(--primary); margin-top: 0; margin-bottom: 20px;
+            font-weight: 700; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px;
         }
         .chart-container { position: relative; height: 350px; }
     </style>
@@ -113,9 +98,8 @@
                 <p>تحليل الإيرادات، المصروفات، وفوائد الديون (آخر 6 سنوات)</p>
             </div>
             <div class="filter-box">
-                <label for="yearSelect">السنة المالية:</label>
-                <select id="yearSelect" onchange="updateDashboard()">
-                </select>
+                <label for="yearSelect">اختر سنة العرض:</label>
+                <select id="yearSelect" onchange="updateDashboard()"></select>
             </div>
         </div>
 
@@ -139,14 +123,25 @@
         </div>
 
         <div class="charts-grid">
+            <!-- الشارت الأول: تطور جميع السنين (الإيرادات والمصروفات) -->
+            <div class="chart-card full-width">
+                <h2>📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)</h2>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- الشارت الثاني: مقارنة بنود السنة المختارة -->
             <div class="chart-card">
-                <h2>مقارنة بنود الموازنة للسنة المختارة (مليار جنيه)</h2>
+                <h2>📊 بنود الموازنة للسنة المختارة</h2>
                 <div class="chart-container">
                     <canvas id="barChart"></canvas>
                 </div>
             </div>
+
+            <!-- الشارت الثالث: هيكل المصروفات للسنة المختارة -->
             <div class="chart-card">
-                <h2>هيكل البنود الرئيسية (%)</h2>
+                <h2>🥧 هيكل الإنفاق الأساسي (%)</h2>
                 <div class="chart-container">
                     <canvas id="doughnutChart"></canvas>
                 </div>
@@ -173,7 +168,52 @@
             opt.innerHTML = year;
             selectTag.appendChild(opt);
         });
-        selectTag.value = years[years.length - 1]; // افتراضياً أحدث سنة
+        selectTag.value = years[years.length - 1];
+
+        // 1. رسم شارت الاتجاه العام لجميع السنين (Trend Chart) مرة واحدة
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: 'إجمالي الإيرادات العامة',
+                        data: years.map(y => budgetData[y].Revenues),
+                        borderColor: '#2E7D32',
+                        backgroundColor: '#2E7D32',
+                        borderWidth: 3,
+                        tension: 0.2
+                    },
+                    {
+                        label: 'إجمالي المصروفات',
+                        data: years.map(y => budgetData[y].Expenditures),
+                        borderColor: '#C62828',
+                        backgroundColor: '#C62828',
+                        borderWidth: 3,
+                        tension: 0.2
+                    },
+                    {
+                        label: 'فوائد الديون',
+                        data: years.map(y => budgetData[y].Debt),
+                        borderColor: '#D84315',
+                        backgroundColor: '#D84315',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo' } } } },
+                scales: {
+                    y: { grid: { color: '#F1F5F9' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
 
         let barChartInstance = null;
         let doughnutChartInstance = null;
