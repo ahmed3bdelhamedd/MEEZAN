@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>موازنة مصر العامة - لوحة المؤشرات التفاعلية</title>
+    <title>لوحة المؤشرات التحليلية - موازنة مصر العامة</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .header { text-align: center; background: #1B365D; color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -20,8 +21,8 @@
 <body>
 
     <div class="header">
-        <h1>📊 لوحة المؤشرات التفاعلية للموازنة العامة المصرية (آخر 6 سنوات)</h1>
-        <p>تحليل شامل ومقارنات تفاعلية للإيرادات، المصروفات، وخدمة الدين</p>
+        <h1>📊 لوحة المؤشرات التحليلية التفاعلية للموازنة العامة لمصر</h1>
+        <p>تحليل إيرادات ومصروفات الدولة لآخر 6 سنوات مالية (مستخرج من ملف البيانات)</p>
     </div>
 
     <div class="kpi-container">
@@ -45,68 +46,93 @@
 
     <div class="charts-grid">
         <div class="chart-card">
-            <h2>تطور الإيرادات والمصروفات وبنود الإنفاق (عبر السنين)</h2>
+            <h2>تطور الإيرادات العامة والمصروفات وبنود الإنفاق (عبر السنوات)</h2>
             <canvas id="mainChart"></canvas>
         </div>
         <div class="chart-card">
-            <h2>هيكل الموازنة لأحدث سنة (2026/2027)</h2>
-            <canvas id="pieChart"></canvas>
+            <h2>هيكل البنود الرئيسية لأحدث سنة</h2>
+            <canvas id="doughnutChart"></canvas>
         </div>
     </div>
 
     <script>
-        const years = ["2021/2022", "2022/2023", "2023/2024", "2024/2025", "2025/2026", "2026/2027"];
-        
-        const ctx = document.getElementById('mainChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: years,
-                datasets: [
-                    {
-                        type: 'line',
-                        label: 'إجمالي الإيرادات العامة',
-                        data: [1365.0, 1518.0, 2100.0, 2600.0, 3150.0, 4175.0],
-                        borderColor: '#2E7D32',
-                        backgroundColor: '#2E7D32',
-                        borderWidth: 3,
-                        tension: 0.2
-                    },
-                    {
-                        type: 'line',
-                        label: 'إجمالي المصروفات',
-                        data: [1839.0, 2139.0, 3061.0, 3800.0, 4600.0, 5100.0],
-                        borderColor: '#C62828',
-                        backgroundColor: '#C62828',
-                        borderWidth: 3,
-                        tension: 0.2
-                    },
-                    {
-                        label: 'خدمة الدين (الفوائد)',
-                        data: [567.0, 690.0, 1120.0, 1500.0, 1800.0, 2100.0],
-                        backgroundColor: '#D84315'
-                    },
-                    {
-                        label: 'الأجور وتعويضات العاملين',
-                        data: [362.0, 400.0, 470.0, 575.0, 679.0, 822.8],
-                        backgroundColor: '#1565C0'
-                    }
-                ]
-            },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-        });
+        // تحميل ملف الـ CSV أونلاين ورسم الداش بورد تفاعلياً
+        Papa.parse("Egypt_Budget_PowerBI_Data.csv", {
+            download: true,
+            header: true,
+            complete: function(results) {
+                const data = results.data;
+                
+                // استخراج السنوات الفريدة والبنود
+                const years = [...new Set(data.map(row => row.Year).filter(Boolean))];
+                
+                // جلب بيانات الإيرادات والمصروفات لكل سنة من الملف المرفق
+                const getVals = (statementName) => {
+                    return years.map(y => {
+                        const found = data.find(r => r.Statement === statementName && r.Year === y);
+                        return found ? parseFloat(found.Amount_Billion_EGP) : 0;
+                    });
+                };
 
-        const pieCtx = document.getElementById('pieChart').getContext('2d');
-        new Chart(pieCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['خدمة الدين', 'الأجور', 'الدعم والمنح', 'الاستثمارات الحكومية'],
-                datasets: [{
-                    data: [2100, 822.8, 836.8, 553.7],
-                    backgroundColor: ['#D84315', '#1565C0', '#2E7D32', '#FF8F00']
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                const revenues = getVals("Total Public Revenues");
+                const expenditures = getVals("Total Expenditures");
+                const debt = getVals("Debt Service (Interest)");
+                const wages = getVals("Wages & Compensation");
+
+                // رسم المخطط الرئيسي
+                const ctx = document.getElementById('mainChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: years,
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'إجمالي الإيرادات العامة',
+                                data: revenues,
+                                borderColor: '#2E7D32',
+                                backgroundColor: '#2E7D32',
+                                borderWidth: 3,
+                                tension: 0.2
+                            },
+                            {
+                                type: 'line',
+                                label: 'إجمالي المصروفات',
+                                data: expenditures,
+                                borderColor: '#C62828',
+                                backgroundColor: '#C62828',
+                                borderWidth: 3,
+                                tension: 0.2
+                            },
+                            {
+                                label: 'خدمة الدين (الفوائد)',
+                                data: debt,
+                                backgroundColor: '#D84315'
+                            },
+                            {
+                                label: 'الأجور وتعويضات العاملين',
+                                data: wages,
+                                backgroundColor: '#1565C0'
+                            }
+                        ]
+                    },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                });
+
+                // رسم دائرة التوزيع لأحدث سنة
+                const pieCtx = document.getElementById('doughnutChart').getContext('2d');
+                new Chart(pieCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['خدمة الدين', 'الأجور', 'الدعم والمنح', 'الاستثمارات'],
+                        datasets: [{
+                            data: [2100, 822.8, 836.8, 553.7],
+                            backgroundColor: ['#D84315', '#1565C0', '#2E7D32', '#FF8F00']
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                });
+            }
         });
     </script>
 </body>
