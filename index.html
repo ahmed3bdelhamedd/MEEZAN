@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة المؤشرات التحليلية التفاعلية - موازنة مصر العامة</title>
+    <title>لوحة المؤشرات التحليلية - موازنة مصر العامة</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
@@ -24,102 +24,90 @@
 
     <div class="header">
         <h1>📊 لوحة المؤشرات التحليلية التفاعلية للموازنة العامة لمصر</h1>
-        <p>اختر السنة المالية لعرض تفاصيل الإيرادات والمصروفات وهيكل الإنفاق بـتفاعل كامل</p>
+        <p>تحليل تفصيلي للمصروفات، فوائد الديون، الأجور، والدعم (موازنة 2025/2026)</p>
     </div>
 
     <div class="filter-section">
-        <label for="yearSelect">📅 اختر السنة المالية للعرض:</label>
+        <label for="yearSelect">📅 اختر الموازنة / السنة المالية:</label>
         <select id="yearSelect" onchange="updateDashboard()">
+            <option value="2025/2026">موازنة 2025/2026 (البيان التفصيلي للمصروفات)</option>
+            <option value="2026/2027">موازنة 2026/2027 (توقعات إجمالية)</option>
         </select>
     </div>
 
     <div class="kpi-container">
-        <div class="kpi-card" style="border-top-color: #2E7D32;">
-            <h3>إجمالي الإيرادات العامة</h3>
-            <p id="kpiRev">-</p>
-        </div>
         <div class="kpi-card" style="border-top-color: #C62828;">
             <h3>إجمالي المصروفات</h3>
             <p id="kpiExp">-</p>
         </div>
-        <div class="kpi-card" style="border-top-color: #1565C0;">
-            <h3>الإيرادات الضريبية</h3>
-            <p id="kpiTax">-</p>
-        </div>
         <div class="kpi-card" style="border-top-color: #D84315;">
-            <h3>خدمة الدين (الفوائد)</h3>
+            <h3>فوائد الديون</h3>
             <p id="kpiDebt">-</p>
+        </div>
+        <div class="kpi-card" style="border-top-color: #2E7D32;">
+            <h3>الدعم والمزايا الاجتماعية</h3>
+            <p id="kpiSub">-</p>
+        </div>
+        <div class="kpi-card" style="border-top-color: #1565C0;">
+            <h3>أجور وتعويضات العاملين</h3>
+            <p id="kpiWages">-</p>
         </div>
     </div>
 
     <div class="charts-grid">
         <div class="chart-card">
-            <h2>مقارنة بنود الموازنة للسنة المختارة (مليار جنيه)</h2>
+            <h2>تحليل بنود المصروفات الرئيسية (مليار جنيه)</h2>
             <canvas id="barChart"></canvas>
         </div>
         <div class="chart-card">
-            <h2>توزيع المصروفات الكبرى (هيكل الموازنة)</h2>
+            <h2>هيكل وتوزيع المصروفات (%)</h2>
             <canvas id="doughnutChart"></canvas>
         </div>
     </div>
 
     <script>
         const budgetData = {
-            "2021/2022": {"Total Public Revenues": 1365.0, "Total Expenditures": 1839.0, "Tax Revenues": 983.0, "Wages & Compensation": 362.0, "Debt Service (Interest)": 567.0, "Subsidies & Social Benefits": 325.0, "Government Investments": 280.0},
-            "2022/2023": {"Total Public Revenues": 1518.0, "Total Expenditures": 2139.0, "Tax Revenues": 1168.0, "Wages & Compensation": 400.0, "Debt Service (Interest)": 690.0, "Subsidies & Social Benefits": 356.0, "Government Investments": 310.0},
-            "2023/2024": {"Total Public Revenues": 2100.0, "Total Expenditures": 3061.0, "Tax Revenues": 1525.0, "Wages & Compensation": 470.0, "Debt Service (Interest)": 1120.0, "Subsidies & Social Benefits": 530.0, "Government Investments": 380.0},
-            "2024/2025": {"Total Public Revenues": 2600.0, "Total Expenditures": 3800.0, "Tax Revenues": 2000.0, "Wages & Compensation": 575.0, "Debt Service (Interest)": 1500.0, "Subsidies & Social Benefits": 635.0, "Government Investments": 490.0},
-            "2025/2026": {"Total Public Revenues": 3150.0, "Total Expenditures": 4600.0, "Tax Revenues": 2700.0, "Wages & Compensation": 679.0, "Debt Service (Interest)": 1800.0, "Subsidies & Social Benefits": 730.0, "Government Investments": 520.0},
-            "2026/2027": {"Total Public Revenues": 4175.0, "Total Expenditures": 5100.0, "Tax Revenues": 3529.0, "Wages & Compensation": 822.8, "Debt Service (Interest)": 2100.0, "Subsidies & Social Benefits": 836.8, "Government Investments": 553.7}
+            "2025/2026": {
+                "Total Expenditures": 4573.0,
+                "Debt Service": 2298.0,
+                "Subsidies": 742.6,
+                "Wages": 679.0,
+                "Investments": 434.9
+            },
+            "2026/2027": {
+                "Total Expenditures": 5100.0,
+                "Debt Service": 2100.0,
+                "Subsidies": 836.8,
+                "Wages": 822.8,
+                "Investments": 553.7
+            }
         };
-
-        const years = Object.keys(budgetData);
-        const selectTag = document.getElementById('yearSelect');
-        
-        years.forEach(year => {
-            let opt = document.createElement('option');
-            opt.value = year;
-            opt.innerHTML = year;
-            selectTag.appendChild(opt);
-        });
-        selectTag.value = years[years.length - 1];
 
         let barChartInstance = null;
         let doughnutChartInstance = null;
 
         function updateDashboard() {
-            const selectedYear = selectTag.value;
+            const selectedYear = document.getElementById('yearSelect').value;
             const yData = budgetData[selectedYear];
 
-            document.getElementById('kpiRev').innerText = (yData['Total Public Revenues'] || 0) + ' مليار جـ';
-            document.getElementById('kpiExp').innerText = (yData['Total Expenditures'] || 0) + ' مليار جـ';
-            document.getElementById('kpiTax').innerText = (yData['Tax Revenues'] || 0) + ' مليار جـ';
-            document.getElementById('kpiDebt').innerText = (yData['Debt Service (Interest)'] || 0) + ' مليار جـ';
+            document.getElementById('kpiExp').innerText = yData['Total Expenditures'] + ' مليار جـ';
+            document.getElementById('kpiDebt').innerText = yData['Debt Service'] + ' مليار جـ';
+            document.getElementById('kpiSub').innerText = yData['Subsidies'] + ' مليار جـ';
+            document.getElementById('kpiWages').innerText = yData['Wages'] + ' مليار جـ';
 
             if (barChartInstance) barChartInstance.destroy();
             const barCtx = document.getElementById('barChart').getContext('2d');
             barChartInstance = new Chart(barCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['الإيرادات العامة', 'المصروفات', 'الإيرادات الضريبية', 'الأجور', 'خدمة الدين', 'الدعم والمنح', 'الاستثمارات'],
+                    labels: ['فوائد الديون', 'الدعم والمزايا الاجتماعية', 'الأجور وتعويضات العاملين', 'الاستثمارات (أصول غير مالية)'],
                     datasets: [{
                         label: 'القيمة (مليار جنيه)',
-                        data: [
-                            yData['Total Public Revenues'] || 0,
-                            yData['Total Expenditures'] || 0,
-                            yData['Tax Revenues'] || 0,
-                            yData['Wages & Compensation'] || 0,
-                            yData['Debt Service (Interest)'] || 0,
-                            yData['Subsidies & Social Benefits'] || 0,
-                            yData['Government Investments'] || 0
-                        ],
-                        backgroundColor: ['#2E7D32', '#C62828', '#1565C0', '#0277BD', '#D84315', '#6A1B9A', '#FF8F00']
+                        data: [yData['Debt Service'], yData['Subsidies'], yData['Wages'], yData['Investments']],
+                        backgroundColor: ['#D84315', '#2E7D32', '#1565C0', '#FF8F00']
                     }]
                 },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } }
-                }
+                options: { responsive: true, plugins: { legend: { display: false } } }
             });
 
             if (doughnutChartInstance) doughnutChartInstance.destroy();
@@ -127,23 +115,13 @@
             doughnutChartInstance = new Chart(pieCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['خدمة الدين', 'الأجور', 'الدعم والمنح', 'الاستثمارات'],
+                    labels: ['فوائد الديون', 'الدعم', 'الأجور', 'الاستثمارات'],
                     datasets: [{
-                        data: [
-                            yData['Debt Service (Interest)'] || 0,
-                            yData['Wages & Compensation'] || 0,
-                            yData['Subsidies & Social Benefits'] || 0,
-                            yData['Government Investments'] || 0
-                        ],
-                        backgroundColor: ['#D84315', '#1565C0', '#2E7D32', '#FF8F00']
+                        data: [yData['Debt Service'], yData['Subsidies'], yData['Wages'], yData['Investments']],
+                        backgroundColor: ['#D84315', '#2E7D32', '#1565C0', '#FF8F00']
                     }]
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom' }
-                    }
-                }
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
             });
         }
 
