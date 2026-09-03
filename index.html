@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة المؤشرات التنفيذية - الموازنة العامة المصرية</title>
+    <title>لوحة المؤشرات التنفيذية الشاملة - الموازنة العامة المصرية</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0F2C59;
             --secondary: #173B6B;
-            --accent: #2E7D32;
-            --danger: #C62828;
             --bg-color: #F8FAFC;
             --card-bg: #FFFFFF;
             --text-main: #1E293B;
@@ -41,16 +39,8 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .header h1 {
-            margin: 0;
-            font-size: 26px;
-            font-weight: 900;
-        }
-        .header p {
-            margin: 8px 0 0 0;
-            color: #E2E8F0;
-            font-size: 15px;
-        }
+        .header h1 { margin: 0; font-size: 26px; font-weight: 900; }
+        .header p { margin: 8px 0 0 0; color: #E2E8F0; font-size: 15px; }
         .filter-box {
             background: rgba(255, 255, 255, 0.1);
             padding: 8px 15px;
@@ -60,10 +50,7 @@
             gap: 10px;
             backdrop-filter: blur(5px);
         }
-        .filter-box label {
-            font-weight: 600;
-            font-size: 14px;
-        }
+        .filter-box label { font-weight: 600; font-size: 14px; }
         .filter-box select {
             background: white;
             color: var(--text-main);
@@ -77,7 +64,7 @@
         }
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -87,33 +74,17 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             border-right: 6px solid var(--primary);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease;
         }
-        .kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-        }
-        .kpi-card h3 {
-            margin: 0;
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        .kpi-card .value {
-            font-size: 26px;
-            font-weight: 900;
-            margin: 12px 0 0 0;
-            color: var(--primary);
-        }
+        .kpi-card:hover { transform: translateY(-4px); }
+        .kpi-card h3 { margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+        .kpi-card .value { font-size: 24px; font-weight: 900; margin: 12px 0 0 0; color: var(--primary); }
         .charts-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 25px;
         }
-        @media(max-width: 1024px) {
-            .charts-grid { grid-template-columns: 1fr; }
-        }
+        @media(max-width: 1024px) { .charts-grid { grid-template-columns: 1fr; } }
         .chart-card {
             background: var(--card-bg);
             padding: 25px;
@@ -129,10 +100,7 @@
             border-bottom: 2px solid #F1F5F9;
             padding-bottom: 12px;
         }
-        .chart-container {
-            position: relative;
-            height: 350px;
-        }
+        .chart-container { position: relative; height: 350px; }
     </style>
 </head>
 <body>
@@ -141,46 +109,44 @@
         
         <div class="header">
             <div>
-                <h1>📊 لوحة المؤشرات التنفيذية للموازنة العامة</h1>
-                <p>تحليل مالي تفصيلي لبنود المصروفات، فوائد الديون، والأجور</p>
+                <h1>📊 لوحة المؤشرات التنفيذية الشاملة - الموازنة العامة</h1>
+                <p>تحليل الإيرادات، المصروفات، وفوائد الديون (آخر 6 سنوات)</p>
             </div>
             <div class="filter-box">
                 <label for="yearSelect">السنة المالية:</label>
                 <select id="yearSelect" onchange="updateDashboard()">
-                    <option value="2025/2026">موازنة 2025/2026 (البيان التفصيلي)</option>
-                    <option value="2026/2027">موازنة 2026/2027 (التوقعات الإجمالية)</option>
                 </select>
             </div>
         </div>
 
         <div class="kpi-grid">
+            <div class="kpi-card" style="border-right-color: #2E7D32;">
+                <h3>إجمالي الإيرادات</h3>
+                <p class="value" id="kpiRev">-</p>
+            </div>
             <div class="kpi-card" style="border-right-color: #C62828;">
-                <h3>إجمالي المصروفات الكلي</h3>
+                <h3>إجمالي المصروفات</h3>
                 <p class="value" id="kpiExp">-</p>
+            </div>
+            <div class="kpi-card" style="border-right-color: #1565C0;">
+                <h3>الإيرادات الضريبية</h3>
+                <p class="value" id="kpiTax">-</p>
             </div>
             <div class="kpi-card" style="border-right-color: #D84315;">
                 <h3>فوائد الديون</h3>
                 <p class="value" id="kpiDebt">-</p>
             </div>
-            <div class="kpi-card" style="border-right-color: #2E7D32;">
-                <h3>الدعم والمزايا الاجتماعية</h3>
-                <p class="value" id="kpiSub">-</p>
-            </div>
-            <div class="kpi-card" style="border-right-color: #1565C0;">
-                <h3>أجور وتعويضات العاملين</h3>
-                <p class="value" id="kpiWages">-</p>
-            </div>
         </div>
 
         <div class="charts-grid">
             <div class="chart-card">
-                <h2>تحليل بنود المصروفات الرئيسية (مليار جنيه)</h2>
+                <h2>مقارنة بنود الموازنة للسنة المختارة (مليار جنيه)</h2>
                 <div class="chart-container">
                     <canvas id="barChart"></canvas>
                 </div>
             </div>
             <div class="chart-card">
-                <h2>هيكل وتوزيع بنود الإنفاق (%)</h2>
+                <h2>هيكل البنود الرئيسية (%)</h2>
                 <div class="chart-container">
                     <canvas id="doughnutChart"></canvas>
                 </div>
@@ -191,51 +157,48 @@
 
     <script>
         const budgetData = {
-            "2025/2026": {
-                "Total Expenditures": "4,573.0",
-                "Debt Service": "2,298.0",
-                "Subsidies": "742.6",
-                "Wages": "679.0",
-                "Investments": "434.9"
-            },
-            "2026/2027": {
-                "Total Expenditures": "5,100.0",
-                "Debt Service": "2,100.0",
-                "Subsidies": "836.8",
-                "Wages": "822.8",
-                "Investments": "553.7"
-            }
+            "2021/2022": { "Revenues": 1365.0, "Expenditures": 1839.0, "Tax": 983.0, "Debt": 567.0, "Wages": 362.0, "Subsidies": 325.0, "Investments": 280.0 },
+            "2022/2023": { "Revenues": 1518.0, "Expenditures": 2139.0, "Tax": 1168.0, "Debt": 690.0, "Wages": 400.0, "Subsidies": 356.0, "Investments": 310.0 },
+            "2023/2024": { "Revenues": 2100.0, "Expenditures": 3061.0, "Tax": 1525.0, "Debt": 1120.0, "Wages": 470.0, "Subsidies": 530.0, "Investments": 380.0 },
+            "2024/2025": { "Revenues": 2600.0, "Expenditures": 3800.0, "Tax": 2000.0, "Debt": 1500.0, "Wages": 575.0, "Subsidies": 635.0, "Investments": 490.0 },
+            "2025/2026": { "Revenues": 3150.0, "Expenditures": 4573.0, "Tax": 2700.0, "Debt": 2298.0, "Wages": 679.0, "Subsidies": 742.6, "Investments": 434.9 },
+            "2026/2027": { "Revenues": 4175.0, "Expenditures": 5100.0, "Tax": 3529.0, "Debt": 2100.0, "Wages": 822.8, "Subsidies": 836.8, "Investments": 553.7 }
         };
+
+        const years = Object.keys(budgetData);
+        const selectTag = document.getElementById('yearSelect');
+        years.forEach(year => {
+            let opt = document.createElement('option');
+            opt.value = year;
+            opt.innerHTML = year;
+            selectTag.appendChild(opt);
+        });
+        selectTag.value = years[years.length - 1]; // افتراضياً أحدث سنة
 
         let barChartInstance = null;
         let doughnutChartInstance = null;
 
         function updateDashboard() {
-            const selectedYear = document.getElementById('yearSelect').value;
+            const selectedYear = selectTag.value;
             const yData = budgetData[selectedYear];
 
-            document.getElementById('kpiExp').innerText = yData['Total Expenditures'] + ' مليار';
-            document.getElementById('kpiDebt').innerText = yData['Debt Service'] + ' مليار';
-            document.getElementById('kpiSub').innerText = yData['Subsidies'] + ' مليار';
-            document.getElementById('kpiWages').innerText = yData['Wages'] + ' مليار';
+            document.getElementById('kpiRev').innerText = yData['Revenues'] + ' مليار';
+            document.getElementById('kpiExp').innerText = yData['Expenditures'] + ' مليار';
+            document.getElementById('kpiTax').innerText = yData['Tax'] + ' مليار';
+            document.getElementById('kpiDebt').innerText = yData['Debt'] + ' مليار';
 
-            const rawData = [
-                parseFloat(yData['Debt Service'].replace(',', '')),
-                parseFloat(yData['Subsidies'].replace(',', '')),
-                parseFloat(yData['Wages'].replace(',', '')),
-                parseFloat(yData['Investments'].replace(',', ''))
-            ];
+            const rawData = [yData['Revenues'], yData['Expenditures'], yData['Tax'], yData['Debt'], yData['Wages'], yData['Subsidies'], yData['Investments']];
 
             if (barChartInstance) barChartInstance.destroy();
             const barCtx = document.getElementById('barChart').getContext('2d');
             barChartInstance = new Chart(barCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['فوائد الديون', 'الدعم والمنح', 'الأجور', 'الاستثمارات'],
+                    labels: ['الإيرادات', 'المصروفات', 'الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
                     datasets: [{
                         label: 'القيمة (مليار جنيه)',
                         data: rawData,
-                        backgroundColor: ['#D84315', '#2E7D32', '#1565C0', '#FF8F00'],
+                        backgroundColor: ['#2E7D32', '#C62828', '#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'],
                         borderRadius: 8
                     }]
                 },
@@ -255,10 +218,10 @@
             doughnutChartInstance = new Chart(pieCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['فوائد الديون', 'الدعم', 'الأجور', 'الاستثمارات'],
+                    labels: ['الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
                     datasets: [{
-                        data: rawData,
-                        backgroundColor: ['#D84315', '#2E7D32', '#1565C0', '#FF8F00'],
+                        data: [yData['Tax'], yData['Debt'], yData['Wages'], yData['Subsidies'], yData['Investments']],
+                        backgroundColor: ['#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'],
                         borderWidth: 2,
                         borderColor: '#FFFFFF'
                     }]
@@ -266,9 +229,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 12 } } }
-                    }
+                    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 11 } } } }
                 }
             });
         }
