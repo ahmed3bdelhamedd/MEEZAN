@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة المؤشرات التنفيذية الشاملة - الموازنة العامة المصرية</title>
     
-    <!-- ربط الصورة المرفوعة في جيت هاب كـ Favicon -->
+    <!-- ربط الصورة المرفوعة كـ Favicon -->
     <link rel="icon" type="image/png" href="download.png">
     <link rel="apple-touch-icon" href="download.png">
 
@@ -175,7 +175,7 @@
         });
         selectTag.value = years[years.length - 1];
 
-        // 1. رسم شارت الاتجاه العام لجميع السنين (Trend Chart) مرة واحدة
+        // 1. رسم شارت الاتجاه العام لجميع السنين (Trend Chart)
         const trendCtx = document.getElementById('trendChart').getContext('2d');
         new Chart(trendCtx, {
             type: 'line',
