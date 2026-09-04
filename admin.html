@@ -49,6 +49,7 @@
         }
         .card h2 { margin-bottom: 20px; font-size: 1.3rem; color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 12px; font-weight: 900; }
         table { width: 100%; border-collapse: collapse; text-align: right; }
+        html[lang="en"] table { text-align: left; }
         th, td { padding: 14px 18px; border-bottom: 1px solid var(--border-color); }
         th { background-color: #f8fafc; color: #475569; font-weight: 700; font-size: 0.95rem; }
         tr { transition: background-color 0.2s; }
@@ -66,34 +67,34 @@
     <div class="container animated">
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>إجمالي البلاغات الواردة</h3>
+                <h3 data-translate="admin_stat1">إجمالي البلاغات الواردة</h3>
                 <div class="number" id="totalReportsCount">1,248</div>
             </div>
             <div class="stat-card warning">
-                <h3>أكثر القطاعات شكاوى</h3>
-                <div class="number" style="font-size: 1.3rem;">مياه وصرف صحي</div>
+                <h3 data-translate="admin_stat2">أكثر القطاعات شكاوى</h3>
+                <div class="number" style="font-size: 1.3rem;" data-translate="admin_stat2_val">مياه وصرف صحي</div>
             </div>
             <div class="stat-card danger">
-                <h3>أعلى منطقة احتياجاً للموارد</h3>
-                <div class="number" style="font-size: 1.3rem;">حي الهرم (الجيزة)</div>
+                <h3 data-translate="admin_stat3">أعلى منطقة احتياجاً للموارد</h3>
+                <div class="number" style="font-size: 1.3rem;" data-translate="admin_stat3_val">حي الهرم (الجيزة)</div>
             </div>
             <div class="stat-card" style="border-right-color: #3b82f6;">
-                <h3>نسبة الاستجابة والحل</h3>
+                <h3 data-translate="admin_stat4">نسبة الاستجابة والحل</h3>
                 <div class="number">68%</div>
             </div>
         </div>
 
         <div class="card">
-            <h2>متابعة البلاغات الواردة وتصنيفاتها الذكية</h2>
+            <h2 data-translate="admin_table_title">متابعة البلاغات الواردة وتصنيفاتها الذكية</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>رقم البلاغ</th>
-                        <th>المنطقة / الحي</th>
-                        <th>وصف المشكلة</th>
-                        <th>تصنيف الـ AI</th>
-                        <th>الأولوية</th>
-                        <th>الحالة</th>
+                        <th data-translate="th_id">رقم البلاغ</th>
+                        <th data-translate="th_location">المنطقة / الحي</th>
+                        <th data-translate="th_desc">وصف المشكلة</th>
+                        <th data-translate="th_ai">تصنيف الـ AI</th>
+                        <th data-translate="th_priority">الأولوية</th>
+                        <th data-translate="th_status">الحالة</th>
                     </tr>
                 </thead>
                 <tbody id="adminReportsTable"></tbody>
@@ -101,15 +102,56 @@
         </div>
 
         <div class="card">
-            <h2>توصيات صانع القرار (Data-Driven Insights)</h2>
+            <h2 data-translate="admin_insights_title">توصيات صانع القرار (Data-Driven Insights)</h2>
             <div class="insights-box">
-                <h4>توجيه الموارد المقترح بناءً على كثافة الشكاوى:</h4>
-                <p>يُوصى بإعادة توجيه 15% من فائض ميزانية البنية التحتية الفرعية لقطاع <strong>مياه وصرف صحي</strong> في نطاق محافظة الجيزة (تحديداً قطاع الهرم) نظراً لتسجيل تكرار بلاغات بنسبة 42% خلال الشهر الحالي.</p>
+                <h4 data-translate="admin_insights_h">توجيه الموارد المقترح بناءً على كثافة الشكاوى:</h4>
+                <p data-translate="admin_insights_p">يُوصى بإعادة توجيه 15% من فائض ميزانية البنية التحتية الفرعية لقطاع <strong>مياه وصرف صحي</strong> في نطاق محافظة الجيزة (تحديداً قطاع الهرم) نظراً لتسجيل تكرار بلاغات بنسبة 42% خلال الشهر الحالي.</p>
             </div>
         </div>
     </div>
 
     <script>
+        // دمج مفاتيح الترجمة الخاصة بلوحة المسؤولين مع القاموس العام الموجود في header.js
+        if (typeof sharedDictionary !== 'undefined') {
+            Object.assign(sharedDictionary.ar, {
+                admin_stat1: "إجمالي البلاغات الواردة",
+                admin_stat2: "أكثر القطاعات شكاوى",
+                admin_stat2_val: "مياه وصرف صحي",
+                admin_stat3: "أعلى منطقة احتياجاً للموارد",
+                admin_stat3_val: "حي الهرم (الجيزة)",
+                admin_stat4: "نسبة الاستجابة والحل",
+                admin_table_title: "متابعة البلاغات الواردة وتصنيفاتها الذكية",
+                th_id: "رقم البلاغ",
+                th_location: "المنطقة / الحي",
+                th_desc: "وصف المشكلة",
+                th_ai: "تصنيف الـ AI",
+                th_priority: "الأولوية",
+                th_status: "الحالة",
+                admin_insights_title: "توصيات صانع القرار (Data-Driven Insights)",
+                admin_insights_h: "توجيه الموارد المقترح بناءً على كثافة الشكاوى:",
+                admin_insights_p: 'يُوصى بإعادة توجيه 15% من فائض ميزانية البنية التحتية الفرعية لقطاع <strong>مياه وصرف صحي</strong> في نطاق محافظة الجيزة (تحديداً قطاع الهرم) نظراً لتسجيل تكرار بلاغات بنسبة 42% خلال الشهر الحالي.'
+            });
+
+            Object.assign(sharedDictionary.en, {
+                admin_stat1: "Total Incoming Reports",
+                admin_stat2: "Most Complained Sector",
+                admin_stat2_val: "Water & Sanitation",
+                admin_stat3: "Highest Resource Demand Area",
+                admin_stat3_val: "Al-Haram District (Giza)",
+                admin_stat4: "Response & Resolution Rate",
+                admin_table_title: "Incoming Reports & AI Classifications Monitoring",
+                th_id: "Report ID",
+                th_location: "Location / District",
+                th_desc: "Problem Description",
+                th_ai: "AI Category",
+                th_priority: "Priority",
+                th_status: "Status",
+                admin_insights_title: "Decision-Maker Recommendations (Data-Driven Insights)",
+                admin_insights_h: "Proposed Resource Allocation Based on Complaint Density:",
+                admin_insights_p: 'It is recommended to redirect 15% of the sub-infrastructure budget surplus to the <strong>Water & Sanitation</strong> sector in Giza Governorate (specifically Al-Haram district) due to a 42% recurrence of reports during the current month.'
+            });
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             const tableBody = document.getElementById('adminReportsTable');
             let defaultReports = [
@@ -127,8 +169,8 @@
             let html = '';
             reports.forEach(rep => {
                 let badgeClass = 'medium';
-                if (rep.priority.includes('حرجة') || rep.priority.includes('عالية')) badgeClass = 'high';
-                else if (rep.priority.includes('منخفضة')) badgeClass = 'low';
+                if (rep.priority.includes('حرجة') || rep.priority.includes('عالية') || rep.priority.includes('Critical')) badgeClass = 'high';
+                else if (rep.priority.includes('منخفضة') || rep.priority.includes('Low')) badgeClass = 'low';
 
                 html += `
                     <tr>
