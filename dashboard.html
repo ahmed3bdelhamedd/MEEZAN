@@ -59,10 +59,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03); border-right: 6px solid var(--primary);
             transition: all 0.3s ease; border: 1px solid #f1f5f9;
         }
-        html[lang="en"] .kpi-card {
-            border-right: none;
-            border-left: 6px solid var(--primary);
-        }
+        html[lang="en"] .kpi-card { border-right: none; border-left: 6px solid var(--primary); }
         .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
         .kpi-card h3 { margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
         .kpi-card .value { font-size: 26px; font-weight: 900; margin: 12px 0 0 0; color: var(--primary); }
@@ -102,7 +99,7 @@
         </div>
 
         <div class="kpi-grid">
-            <div class="kpi-card" style="border-right-color: #2E7D32; html[lang='en'] & { border-left-color: #2E7D32; }">
+            <div class="kpi-card" style="border-right-color: #2E7D32;">
                 <h3 data-translate="dash_kpi1">إجمالي الإيرادات</h3>
                 <p class="value" id="kpiRev">-</p>
             </div>
@@ -137,7 +134,6 @@
     </div>
 
     <script>
-        // دمج مفاتيح الترجمة الخاصة بصفحة التحليلات مع القاموس العام الموجود في header.js
         if (typeof sharedDictionary !== 'undefined') {
             Object.assign(sharedDictionary.ar, {
                 dash_main_title: "📊 لوحة المؤشرات التنفيذية للموازنة العامة (Data Analytics)",
@@ -150,11 +146,7 @@
                 dash_kpi4: "فوائد الديون",
                 dash_chart1_title: "📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)",
                 dash_chart2_title: "📊 بنود الموازنة للسنة المختارة",
-                dash_chart3_title: "🥧 هيكل الإنفاق الأساسي (%)",
-                trend_rev: "إجمالي الإيرادات العامة",
-                trend_exp: "إجمالي المصروفات",
-                trend_debt: "فوائد الديون",
-                unit_label: "مليار جنيه"
+                dash_chart3_title: "🥧 هيكل الإنفاق الأساسي (%)"
             });
 
             Object.assign(sharedDictionary.en, {
@@ -168,11 +160,7 @@
                 dash_kpi4: "Debt Interest",
                 dash_chart1_title: "📈 Revenue & Expenditure Trend (Last 6 Years in Billion EGP)",
                 dash_chart2_title: "📊 Budget Items for Selected Year",
-                dash_chart3_title: "🥧 Primary Spending Structure (%)",
-                trend_rev: "Total Public Revenues",
-                trend_exp: "Total Expenditures",
-                trend_debt: "Debt Interest",
-                unit_label: "Billion EGP"
+                dash_chart3_title: "🥧 Primary Spending Structure (%)"
             });
         }
 
@@ -195,7 +183,7 @@
         selectTag.value = years[years.length - 1];
 
         const trendCtx = document.getElementById('trendChart').getContext('2d');
-        const trendChartInstance = new Chart(trendCtx, {
+        new Chart(trendCtx, {
             type: 'line',
             data: {
                 labels: years,
@@ -245,10 +233,7 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 11 } } } } }
             });
         }
-
-        window.onload = function() {
-            updateDashboard();
-        };
+        window.onload = updateDashboard;
     </script>
 </body>
 </html>
