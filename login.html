@@ -58,6 +58,7 @@
             box-shadow: 0 20px 40px rgba(15, 44, 89, 0.08);
             overflow: hidden;
             animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            border: 1px solid #f1f5f9;
         }
         .login-banner {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -90,6 +91,8 @@
         .guest-links { margin-top: 25px; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
         .guest-links a { color: var(--primary); text-decoration: none; font-weight: bold; margin: 0 5px; transition: color 0.2s; }
         .guest-links a:hover { color: var(--accent); text-decoration: underline; }
+        .back-home { display: block; text-align: center; margin-top: 15px; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+        .back-home:hover { color: var(--primary); }
         @media(max-width: 768px) { .login-container { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -137,6 +140,8 @@
                 <a href="dashboard.html" data-t="link_dash">التحليلات المالية</a> | 
                 <a href="meezan.html" data-t="link_citizen">بوابة المواطن</a>
             </div>
+            
+            <a href="index.html" class="back-home" data-t="back_home">← العودة إلى الصفحة الرئيسية للمشروع</a>
         </div>
     </div>
 
@@ -160,6 +165,7 @@
                 direct_browse: "تصفح مباشر:",
                 link_dash: "التحليلات المالية",
                 link_citizen: "بوابة المواطن",
+                back_home: "← العودة إلى الصفحة الرئيسية للمشروع",
                 btnText: "English 🌐"
             },
             en: {
@@ -180,6 +186,7 @@
                 direct_browse: "Direct Browse:",
                 link_dash: "Financial Analytics",
                 link_citizen: "Citizen Portal",
+                back_home: "← Back to Project Home",
                 btnText: "العربية 🌐"
             }
         };
