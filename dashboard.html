@@ -36,6 +36,12 @@
             font-size: 1.6rem; color: var(--primary); margin-bottom: 20px; font-weight: 900;
             border-right: 5px solid var(--accent); padding-right: 15px;
         }
+        html[lang="en"] .analytics-section-title {
+            border-right: none;
+            border-left: 5px solid var(--accent);
+            padding-right: 0;
+            padding-left: 15px;
+        }
         .header-filter {
             background: white; padding: 20px 30px; border-radius: 16px; margin-bottom: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; justify-content: space-between;
@@ -52,6 +58,10 @@
             background: var(--card-bg); padding: 24px; border-radius: 18px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03); border-right: 6px solid var(--primary);
             transition: all 0.3s ease; border: 1px solid #f1f5f9;
+        }
+        html[lang="en"] .kpi-card {
+            border-right: none;
+            border-left: 6px solid var(--primary);
         }
         .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
         .kpi-card h3 { margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
@@ -78,55 +88,94 @@
 <body>
 
     <div class="dashboard-container animated">
-        <div class="analytics-section-title">📊 لوحة المؤشرات التنفيذية للموازنة العامة (Data Analytics)</div>
+        <div class="analytics-section-title" data-translate="dash_main_title">📊 لوحة المؤشرات التنفيذية للموازنة العامة (Data Analytics)</div>
 
         <div class="header-filter">
             <div>
-                <h3 style="color: var(--primary); font-size: 1.1rem;">المؤشرات المالية التنفيذية</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">تحليل الإيرادات، المصروفات، وفوائد الديون (آخر 6 سنوات)</p>
+                <h3 style="color: var(--primary); font-size: 1.1rem;" data-translate="dash_sub_heading">المؤشرات المالية التنفيذية</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;" data-translate="dash_sub_desc">تحليل الإيرادات، المصروفات، وفوائد الديون (آخر 6 سنوات)</p>
             </div>
             <div class="filter-box">
-                <label for="yearSelect" style="font-weight: 600; font-size: 14px; margin-left: 8px;">اختر سنة العرض:</label>
+                <label for="yearSelect" style="font-weight: 600; font-size: 14px; margin-left: 8px;" data-translate="dash_year_label">اختر سنة العرض:</label>
                 <select id="yearSelect" onchange="updateDashboard()"></select>
             </div>
         </div>
 
         <div class="kpi-grid">
-            <div class="kpi-card" style="border-right-color: #2E7D32;">
-                <h3>إجمالي الإيرادات</h3>
+            <div class="kpi-card" style="border-right-color: #2E7D32; html[lang='en'] & { border-left-color: #2E7D32; }">
+                <h3 data-translate="dash_kpi1">إجمالي الإيرادات</h3>
                 <p class="value" id="kpiRev">-</p>
             </div>
             <div class="kpi-card" style="border-right-color: #C62828;">
-                <h3>إجمالي المصروفات</h3>
+                <h3 data-translate="dash_kpi2">إجمالي المصروفات</h3>
                 <p class="value" id="kpiExp">-</p>
             </div>
             <div class="kpi-card" style="border-right-color: #1565C0;">
-                <h3>الإيرادات الضريبية</h3>
+                <h3 data-translate="dash_kpi3">الإيرادات الضريبية</h3>
                 <p class="value" id="kpiTax">-</p>
             </div>
             <div class="kpi-card" style="border-right-color: #D84315;">
-                <h3>فوائد الديون</h3>
+                <h3 data-translate="dash_kpi4">فوائد الديون</h3>
                 <p class="value" id="kpiDebt">-</p>
             </div>
         </div>
 
         <div class="charts-grid">
             <div class="chart-card full-width">
-                <h2>📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)</h2>
+                <h2 data-translate="dash_chart1_title">📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)</h2>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
             </div>
             <div class="chart-card">
-                <h2>📊 بنود الموازنة للسنة المختارة</h2>
+                <h2 data-translate="dash_chart2_title">📊 بنود الموازنة للسنة المختارة</h2>
                 <div class="chart-container"><canvas id="barChart"></canvas></div>
             </div>
             <div class="chart-card">
-                <h2>🥧 هيكل الإنفاق الأساسي (%)</h2>
+                <h2 data-translate="dash_chart3_title">🥧 هيكل الإنفاق الأساسي (%)</h2>
                 <div class="chart-container"><canvas id="doughnutChart"></canvas></div>
             </div>
         </div>
     </div>
 
     <script>
+        // دمج مفاتيح الترجمة الخاصة بصفحة التحليلات مع القاموس العام الموجود في header.js
+        if (typeof sharedDictionary !== 'undefined') {
+            Object.assign(sharedDictionary.ar, {
+                dash_main_title: "📊 لوحة المؤشرات التنفيذية للموازنة العامة (Data Analytics)",
+                dash_sub_heading: "المؤشرات المالية التنفيذية",
+                dash_sub_desc: "تحليل الإيرادات، المصروفات، وفوائد الديون (آخر 6 سنوات)",
+                dash_year_label: "اختر سنة العرض:",
+                dash_kpi1: "إجمالي الإيرادات",
+                dash_kpi2: "إجمالي المصروفات",
+                dash_kpi3: "الإيرادات الضريبية",
+                dash_kpi4: "فوائد الديون",
+                dash_chart1_title: "📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)",
+                dash_chart2_title: "📊 بنود الموازنة للسنة المختارة",
+                dash_chart3_title: "🥧 هيكل الإنفاق الأساسي (%)",
+                trend_rev: "إجمالي الإيرادات العامة",
+                trend_exp: "إجمالي المصروفات",
+                trend_debt: "فوائد الديون",
+                unit_label: "مليار جنيه"
+            });
+
+            Object.assign(sharedDictionary.en, {
+                dash_main_title: "📊 General Budget Executive Dashboard (Data Analytics)",
+                dash_sub_heading: "Executive Financial Indicators",
+                dash_sub_desc: "Analysis of revenues, expenditures, and debt interest (Last 6 years)",
+                dash_year_label: "Select Year:",
+                dash_kpi1: "Total Revenues",
+                dash_kpi2: "Total Expenditures",
+                dash_kpi3: "Tax Revenues",
+                dash_kpi4: "Debt Interest",
+                dash_chart1_title: "📈 Revenue & Expenditure Trend (Last 6 Years in Billion EGP)",
+                dash_chart2_title: "📊 Budget Items for Selected Year",
+                dash_chart3_title: "🥧 Primary Spending Structure (%)",
+                trend_rev: "Total Public Revenues",
+                trend_exp: "Total Expenditures",
+                trend_debt: "Debt Interest",
+                unit_label: "Billion EGP"
+            });
+        }
+
         const budgetData = {
             "2021/2022": { "Revenues": 1365.0, "Expenditures": 1839.0, "Tax": 983.0, "Debt": 567.0, "Wages": 362.0, "Subsidies": 325.0, "Investments": 280.0 },
             "2022/2023": { "Revenues": 1518.0, "Expenditures": 2139.0, "Tax": 1168.0, "Debt": 690.0, "Wages": 400.0, "Subsidies": 356.0, "Investments": 310.0 },
@@ -146,14 +195,14 @@
         selectTag.value = years[years.length - 1];
 
         const trendCtx = document.getElementById('trendChart').getContext('2d');
-        new Chart(trendCtx, {
+        const trendChartInstance = new Chart(trendCtx, {
             type: 'line',
             data: {
                 labels: years,
                 datasets: [
-                    { label: 'إجمالي الإيرادات العامة', data: years.map(y => budgetData[y].Revenues), borderColor: '#2E7D32', backgroundColor: '#2E7D32', borderWidth: 3, tension: 0.3 },
-                    { label: 'إجمالي المصروفات', data: years.map(y => budgetData[y].Expenditures), borderColor: '#C62828', backgroundColor: '#C62828', borderWidth: 3, tension: 0.3 },
-                    { label: 'فوائد الديون', data: years.map(y => budgetData[y].Debt), borderColor: '#D84315', backgroundColor: '#D84315', borderWidth: 2, borderDash: [5, 5], tension: 0.3 }
+                    { label: localStorage.getItem('meezanLang') === 'en' ? 'Total Public Revenues' : 'إجمالي الإيرادات العامة', data: years.map(y => budgetData[y].Revenues), borderColor: '#2E7D32', backgroundColor: '#2E7D32', borderWidth: 3, tension: 0.3 },
+                    { label: localStorage.getItem('meezanLang') === 'en' ? 'Total Expenditures' : 'إجمالي المصروفات', data: years.map(y => budgetData[y].Expenditures), borderColor: '#C62828', backgroundColor: '#C62828', borderWidth: 3, tension: 0.3 },
+                    { label: localStorage.getItem('meezanLang') === 'en' ? 'Debt Interest' : 'فوائد الديون', data: years.map(y => budgetData[y].Debt), borderColor: '#D84315', backgroundColor: '#D84315', borderWidth: 2, borderDash: [5, 5], tension: 0.3 }
                 ]
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo' } } } }, scales: { y: { grid: { color: '#F1F5F9' } }, x: { grid: { display: false } } } }
@@ -164,19 +213,23 @@
         function updateDashboard() {
             const selectedYear = selectTag.value;
             const yData = budgetData[selectedYear];
+            const currentLang = localStorage.getItem('meezanLang') || 'ar';
+            const unitText = currentLang === 'en' ? 'Billion EGP' : 'مليار جنيه';
 
-            document.getElementById('kpiRev').innerText = yData['Revenues'] + ' مليار';
-            document.getElementById('kpiExp').innerText = yData['Expenditures'] + ' مليار';
-            document.getElementById('kpiTax').innerText = yData['Tax'] + ' مليار';
-            document.getElementById('kpiDebt').innerText = yData['Debt'] + ' مليار';
+            document.getElementById('kpiRev').innerText = yData['Revenues'] + ' ' + unitText;
+            document.getElementById('kpiExp').innerText = yData['Expenditures'] + ' ' + unitText;
+            document.getElementById('kpiTax').innerText = yData['Tax'] + ' ' + unitText;
+            document.getElementById('kpiDebt').innerText = yData['Debt'] + ' ' + unitText;
 
             const rawData = [yData['Revenues'], yData['Expenditures'], yData['Tax'], yData['Debt'], yData['Wages'], yData['Subsidies'], yData['Investments']];
+            const barLabels = currentLang === 'en' ? ['Revenues', 'Expenditures', 'Tax', 'Debt Interest', 'Wages', 'Subsidies', 'Investments'] : ['الإيرادات', 'المصروفات', 'الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'];
+            const doughLabels = currentLang === 'en' ? ['Tax', 'Debt Interest', 'Wages', 'Subsidies', 'Investments'] : ['الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'];
 
             if (barChartInstance) barChartInstance.destroy();
             barChartInstance = new Chart(document.getElementById('barChart').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: ['الإيرادات', 'المصروفات', 'الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
+                    labels: barLabels,
                     datasets: [{ data: rawData, backgroundColor: ['#2E7D32', '#C62828', '#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'], borderRadius: 8 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#F1F5F9' } }, x: { grid: { display: false } } } }
@@ -186,13 +239,16 @@
             doughnutChartInstance = new Chart(document.getElementById('doughnutChart').getContext('2d'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
+                    labels: doughLabels,
                     datasets: [{ data: [yData['Tax'], yData['Debt'], yData['Wages'], yData['Subsidies'], yData['Investments']], backgroundColor: ['#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'], borderWidth: 2, borderColor: '#FFFFFF' }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 11 } } } } }
             });
         }
-        window.onload = updateDashboard;
+
+        window.onload = function() {
+            updateDashboard();
+        };
     </script>
 </body>
 </html>
