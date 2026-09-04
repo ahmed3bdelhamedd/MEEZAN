@@ -59,11 +59,11 @@
 
     <div class="container animated">
         <div class="card">
-            <h2>متابعة الموازنة والمشروعات حسب المحافظة</h2>
+            <h2 data-translate="meezan_card1_title">متابعة الموازنة والمشروعات حسب المحافظة</h2>
             <div class="form-group">
-                <label for="governorate">اختر المحافظة:</label>
+                <label for="governorate" data-translate="meezan_gov_label">اختر المحافظة:</label>
                 <select id="governorate" onchange="updateData()">
-                    <option value="">-- اختر المحافظة --</option>
+                    <option value="" data-translate="gov_default">-- اختر المحافظة --</option>
                     <option value="cairo">القاهرة</option>
                     <option value="giza">الجيزة</option>
                     <option value="alex">الإسكندرية</option>
@@ -96,46 +96,83 @@
 
             <div class="info-grid" id="statsContainer" style="display: none;">
                 <div class="info-box">
-                    <h3>ميزانية التعليم المخصصة</h3>
+                    <h3 data-translate="meezan_edu">ميزانية التعليم المخصصة</h3>
                     <p id="eduBudget">--</p>
                 </div>
                 <div class="info-box">
-                    <h3>ميزانية الصحة</h3>
+                    <h3 data-translate="meezan_health">ميزانية الصحة</h3>
                     <p id="healthBudget">--</p>
                 </div>
                 <div class="info-box">
-                    <h3>نسبة تنفيذ مشروعات الطرق</h3>
+                    <h3 data-translate="meezan_roads">نسبة تنفيذ مشروعات الطرق</h3>
                     <p id="roadsProgress">--</p>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h2>نظام البلاغات والشكاوى المدعوم بالذكاء الاصطناعي</h2>
+            <h2 data-translate="meezan_card2_title">نظام البلاغات والشكاوى المدعوم بالذكاء الاصطناعي</h2>
             <form id="reportForm" onsubmit="submitReport(event)">
                 <div class="form-group">
-                    <label for="reportArea">المنطقة أو الحي بالتحديد:</label>
-                    <input type="text" id="reportArea" placeholder="مثال: الحي الأول، مركز المدينة..." required>
+                    <label for="reportArea" data-translate="meezan_area_label">المنطقة أو الحي بالتحديد:</label>
+                    <input type="text" id="reportArea" placeholder="مثال: الحي الأول، مركز المدينة..." data-translate-placeholder="meezan_area_ph" required>
                 </div>
                 <div class="form-group">
-                    <label for="reportDesc">وصف المشكلة (طريق مكسور، كسر مياه، إنارة...):</label>
-                    <textarea id="reportDesc" placeholder="اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها..." required></textarea>
+                    <label for="reportDesc" data-translate="meezan_desc_label">وصف المشكلة (طريق مكسور، كسر مياه، إنارة...):</label>
+                    <textarea id="reportDesc" placeholder="اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها..." data-translate-placeholder="meezan_desc_ph" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="reportImage">إرفاق صورة للمشكلة:</label>
+                    <label for="reportImage" data-translate="meezan_img_label">إرفاق صورة للمشكلة:</label>
                     <input type="file" id="reportImage" accept="image/*">
                 </div>
-                <button type="submit">إرسال البلاغ للتحليل والمعالجة</button>
+                <button type="submit" data-translate="meezan_submit_btn">إرسال البلاغ للتحليل والمعالجة</button>
             </form>
 
             <div id="aiResult">
-                <h3 style="color: #065f46; margin-bottom: 8px;">تحليل النظام الذكي (AI Analysis):</h3>
+                <h3 style="color: #065f46; margin-bottom: 8px;" data-translate="meezan_ai_title">تحليل النظام الذكي (AI Analysis):</h3>
                 <p id="aiOutputText" style="color: #047857;"></p>
             </div>
         </div>
     </div>
 
     <script>
+        // دمج مفاتيح الترجمة الخاصة ببوابة البلاغات مع القاموس العام في header.js
+        if (typeof sharedDictionary !== 'undefined') {
+            Object.assign(sharedDictionary.ar, {
+                meezan_card1_title: "متابعة الموازنة والمشروعات حسب المحافظة",
+                meezan_gov_label: "اختر المحافظة:",
+                gov_default: "-- اختر المحافظة --",
+                meezan_edu: "ميزانية التعليم المخصصة",
+                meezan_health: "ميزانية الصحة",
+                meezan_roads: "نسبة تنفيذ مشروعات الطرق",
+                meezan_card2_title: "نظام البلاغات والشكاوى المدعوم بالذكاء الاصطناعي",
+                meezan_area_label: "المنطقة أو الحي بالتحديد:",
+                meezan_area_ph: "مثال: الحي الأول، مركز المدينة...",
+                meezan_desc_label: "وصف المشكلة (طريق مكسور، كسر مياه، إنارة...):",
+                meezan_desc_ph: "اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها...",
+                meezan_img_label: "إرفاق صورة للمشكلة:",
+                meezan_submit_btn: "إرسال البلاغ للتحليل والمعالجة",
+                meezan_ai_title: "تحليل النظام الذكي (AI Analysis):"
+            });
+
+            Object.assign(sharedDictionary.en, {
+                meezan_card1_title: "Budget & Projects Tracking by Governorate",
+                meezan_gov_label: "Select Governorate:",
+                gov_default: "-- Select Governorate --",
+                meezan_edu: "Allocated Education Budget",
+                meezan_health: "Health Budget",
+                meezan_roads: "Road Projects Progress Rate",
+                meezan_card2_title: "AI-Powered Reporting & Complaints System",
+                meezan_area_label: "Specific Area or District:",
+                meezan_area_ph: "Example: First District, City Center...",
+                meezan_desc_label: "Problem Description (Broken road, water leak, lighting...):",
+                meezan_desc_ph: "Type the problem details here for AI analysis...",
+                meezan_img_label: "Attach Problem Image:",
+                meezan_submit_btn: "Submit Report for Analysis & Processing",
+                meezan_ai_title: "Smart System Analysis (AI Analysis):"
+            });
+        }
+
         const governoratesData = {
             "cairo": { edu: "720 مليون جنيه", health: "580 مليون جنيه", roads: "85%" },
             "giza": { edu: "650 مليون جنيه", health: "490 مليون جنيه", roads: "80%" },
@@ -169,11 +206,15 @@
         function updateData() {
             const gov = document.getElementById('governorate').value;
             const stats = document.getElementById('statsContainer');
+            const currentLang = localStorage.getItem('meezanLang') || 'ar';
+            const unitText = currentLang === 'en' ? 'Million EGP' : 'مليون جنيه';
+
             if (gov && governoratesData[gov]) {
                 stats.style.display = 'grid';
-                document.getElementById('eduBudget').innerText = governoratesData[gov].edu;
-                document.getElementById('healthBudget').innerText = governoratesData[gov].health;
-                document.getElementById('roadsProgress').innerText = governoratesData[gov].roads;
+                let data = governoratesData[gov];
+                document.getElementById('eduBudget').innerText = data.edu.replace('مليون جنيه', unitText);
+                document.getElementById('healthBudget').innerText = data.health.replace('مليون جنيه', unitText);
+                document.getElementById('roadsProgress').innerText = data.roads;
             } else {
                 stats.style.display = 'none';
             }
@@ -185,25 +226,30 @@
             const desc = document.getElementById('reportDesc').value;
             const govSelect = document.getElementById('governorate');
             const gov = govSelect.options[govSelect.selectedIndex].text;
+            const currentLang = localStorage.getItem('meezanLang') || 'ar';
 
-            let category = "خدمات عامة", priority = "متوسطة";
+            let category = currentLang === 'en' ? "General Services" : "خدمات عامة";
+            let priority = currentLang === 'en' ? "Medium" : "متوسطة";
             const descLower = desc.toLowerCase();
 
-            if (descLower.includes('مياه') || descLower.includes('ماسورة') || descLower.includes('صرف')) {
-                category = "مياه وصرف صحي"; priority = "حرجة / عاجلة";
-            } else if (descLower.includes('طريق') || descLower.includes('حفرة') || descLower.includes('اسفلت')) {
-                category = "طرق ومواصلات"; priority = "متوسطة";
-            } else if (descLower.includes('نور') || descLower.includes('عمود') || descLower.includes('إنارة')) {
-                category = "كهرباء وإنارة"; priority = "منخفضة";
+            if (descLower.includes('مياه') || descLower.includes('water') || descLower.includes('pipe') || descLower.includes('صرف')) {
+                category = currentLang === 'en' ? "Water & Sanitation" : "مياه وصرف صحي";
+                priority = currentLang === 'en' ? "Critical / Urgent" : "حرجة / عاجلة";
+            } else if (descLower.includes('طريق') || descLower.includes('road') || descLower.includes('hole') || descLower.includes('حفرة')) {
+                category = currentLang === 'en' ? "Roads & Transportation" : "طرق ومواصلات";
+                priority = currentLang === 'en' ? "Medium" : "متوسطة";
+            } else if (descLower.includes('نور') || descLower.includes('light') || descLower.includes('electricity') || descLower.includes('إنارة')) {
+                category = currentLang === 'en' ? "Electricity & Lighting" : "كهرباء وإنارة";
+                priority = currentLang === 'en' ? "Low" : "منخفضة";
             }
 
             const newReport = {
                 id: "#MS-" + Math.floor(1000 + Math.random() * 9000),
-                location: area + " (" + (gov.includes('--') ? 'عام' : gov) + ")",
+                location: area + " (" + gov + ")",
                 description: desc,
                 category: category,
                 priority: priority,
-                status: "قيد الإجراء"
+                status: currentLang === 'en' ? "In Progress" : "قيد الإجراء"
             };
 
             let reports = JSON.parse(localStorage.getItem('meezanReports')) || [];
@@ -213,10 +259,19 @@
             const resultBox = document.getElementById('aiResult');
             const outputText = document.getElementById('aiOutputText');
             resultBox.style.display = 'block';
-            outputText.innerHTML = `تم استلام البلاغ وتحليله بنجاح وحفظه في النظام!<br>
-            - التصنيف المكتشف بالذكاء الاصطناعي: <strong>${category}</strong><br>
-            - مستوى الأولوية المقدر: <strong>${priority}</strong><br>
-            - تم إرسال البيانات مباشرة إلى لوحة تحكم المسؤولين.`;
+
+            if (currentLang === 'en') {
+                outputText.innerHTML = `Report received and successfully analyzed and saved in the system!<br>
+                - AI Detected Category: <strong>${category}</strong><br>
+                - Estimated Priority Level: <strong>${priority}</strong><br>
+                - Data sent directly to the admin dashboard.`;
+            } else {
+                outputText.innerHTML = `تم استلام البلاغ وتحليله بنجاح وحفظه في النظام!<br>
+                - التصنيف المكتشف بالذكاء الاصطناعي: <strong>${category}</strong><br>
+                - مستوى الأولوية المقدر: <strong>${priority}</strong><br>
+                - تم إرسال البيانات مباشرة إلى لوحة تحكم المسؤولين.`;
+            }
+
             document.getElementById('reportForm').reset();
         }
     </script>
