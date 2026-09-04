@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة المؤشرات التنفيذية الشاملة - الموازنة العامة المصرية</title>
+    <title>منصة ميزان - لوحة المؤشرات التنفيذية الشاملة والموازنة العامة</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0F2C59;
             --secondary: #173B6B;
+            --accent: #10b981;
             --bg-color: #F8FAFC;
             --card-bg: #FFFFFF;
             --text-main: #1E293B;
             --text-muted: #64748B;
+        }
+        * {
+            box-sizing: border-box;
         }
         body {
             font-family: 'Cairo', sans-serif;
@@ -23,6 +27,36 @@
             color: var(--text-main);
         }
         .dashboard-container { max-width: 1400px; margin: 0 auto; }
+        
+        /* شريط التنقل السريع بين أقسام المنصة */
+        .platform-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 12px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .platform-logo {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        .platform-links a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .platform-links a:hover, .platform-links a.active {
+            color: var(--accent);
+        }
+
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -91,6 +125,16 @@
 <body>
 
     <div class="dashboard-container">
+        
+        <!-- شريط التنقل المتكامل لمنصة ميزان -->
+        <div class="platform-nav">
+            <a href="index.html" class="platform-logo">⚖️ منصة ميزان - MEEZAN</a>
+            <div class="platform-links">
+                <a href="index.html" class="active">تحليلات الموازنة</a>
+                <a href="meezan.html">بوابة المواطن والبلاغات</a>
+                <a href="admin.html">لوحة تحكم المسؤولين</a>
+            </div>
+        </div>
         
         <div class="header">
             <div>
