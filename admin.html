@@ -61,7 +61,6 @@
             text-decoration: underline;
         }
 
-        /* كروت الإحصائيات العليا */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -97,7 +96,6 @@
             color: var(--primary-color);
         }
 
-        /* قسم الجداول والتحليلات */
         .card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -182,11 +180,10 @@
             </div>
         </header>
 
-        <!-- إحصائيات عامة لتحويل الشكاوى لبيانات -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>إجمالي البلاغات الواردة</h3>
-                <div class="number">1,248</div>
+                <div class="number" id="totalReportsCount">1,248</div>
             </div>
             <div class="stat-card warning">
                 <h3>أكثر القطاعات شكاوى</h3>
@@ -202,7 +199,6 @@
             </div>
         </div>
 
-        <!-- جدول أحدث البلاغات المصنفة بالـ AI -->
         <div class="card">
             <h2>متابعة البلاغات الواردة وتصنيفاتها الذكية</h2>
             <table>
@@ -216,36 +212,12 @@
                         <th>الحالة</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>#MS-8021</td>
-                        <td>شارع الهرم، الجيزة</td>
-                        <td>كسر رئيسي في ماسورة مياه وتجمع للمياه</td>
-                        <td>مياه وصرف صحي</td>
-                        <td><span class="badge high">حرجة / عاجلة</span></td>
-                        <td>قيد الإجراء</td>
-                    </tr>
-                    <tr>
-                        <td>#MS-8020</td>
-                        <td>منشأة البكرى، القاهرة</td>
-                        <td>حفرة عميقة في الطريق تهدد السيارات</td>
-                        <td>طرق ومواصلات</td>
-                        <td><span class="badge medium">متوسطة</span></td>
-                        <td>تم التوجيه للحي</td>
-                    </tr>
-                    <tr>
-                        <td>#MS-8019</td>
-                        <td>المحلة الكبرى، الغربية</td>
-                        <td>عطل في أعمدة الإنارة لعدة شوارع فرعية</td>
-                        <td>كهرباء وإنارة</td>
-                        <td><span class="badge low">منخفضة</span></td>
-                        <td>تم الحل</td>
-                    </tr>
+                <tbody id="adminReportsTable">
+                    <!-- سيتم تعبئتها أوتوماتيكياً -->
                 </tbody>
             </table>
         </div>
 
-        <!-- رؤى وتوصيات لاتخاذ القرار المدعوم بالبيانات -->
         <div class="card">
             <h2>توصيات صانع القرار (Data-Driven Insights)</h2>
             <div class="insights-box">
@@ -255,5 +227,43 @@
         </div>
     </div>
 
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.getElementById('adminReportsTable');
+            
+            let defaultReports = [
+                { id: "#MS-8021", location: "شارع الهرم، الجيزة", description: "كسر رئيسي في ماسورة مياه وتجمع للمياه", category: "مياه وصرف صحي", priority: "حرجة / عاجلة", status: "قيد الإجراء" },
+                { id: "#MS-8020", location: "منشأة البكرى، القاهرة", description: "حفرة عميقة في الطريق تهدد السيارات", category: "طرق ومواصلات", priority: "متوسطة", status: "تم التوجيه للحي" }
+            ];
+
+            let reports = JSON.parse(localStorage.getItem('meezanReports'));
+            if (!reports || reports.length === 0) {
+                reports = defaultReports;
+            } else {
+                // تحديث عداد البلاغات الإجمالي بناءً على البلاغات الجديدة المضافة
+                document.getElementById('totalReportsCount').innerText = 1248 + reports.length;
+            }
+
+            let html = '';
+            reports.forEach(rep => {
+                let badgeClass = 'medium';
+                if (rep.priority.includes('حرجة') || rep.priority.includes('عالية')) badgeClass = 'high';
+                else if (rep.priority.includes('منخفضة')) badgeClass = 'low';
+
+                html += `
+                    <tr>
+                        <td>${rep.id}</td>
+                        <td>${rep.location}</td>
+                        <td>${rep.description}</td>
+                        <td>${rep.category}</td>
+                        <td><span class="badge ${badgeClass}">${rep.priority}</span></td>
+                        <td>${rep.status}</td>
+                    </tr>
+                `;
+            });
+
+            tableBody.innerHTML = html;
+        });
+    </script>
 </body>
 </html>
