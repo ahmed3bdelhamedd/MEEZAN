@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // التحقق من اللغة المحفوظة أو ضبط الافتراضية للعربية
     let currentLang = localStorage.getItem('meezanLang') || 'ar';
 
     const headerHTML = `
@@ -8,26 +7,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 position: sticky;
                 top: 0;
                 z-index: 1000;
-                background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(12px);
                 border-bottom: 1px solid #e2e8f0;
-                padding: 12px 30px;
+                padding: 15px 35px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+                box-shadow: 0 4px 20px -2px rgba(15, 44, 89, 0.05);
                 font-family: 'Cairo', sans-serif;
-                margin-bottom: 25px;
-                border-radius: 12px;
+                margin-bottom: 30px;
+                border-radius: 0 0 16px 16px;
+                animation: slideDown 0.6s ease-out;
+            }
+            @keyframes slideDown {
+                from { transform: translateY(-100%); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
             }
             .platform-global-logo {
                 font-weight: 900;
                 color: #0F2C59;
-                font-size: 1.25rem;
+                font-size: 1.35rem;
                 text-decoration: none;
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 10px;
             }
             .platform-global-links {
                 display: flex;
@@ -39,10 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 text-decoration: none;
                 color: #64748b;
                 font-weight: 600;
-                font-size: 0.9rem;
-                padding: 6px 12px;
-                border-radius: 8px;
-                transition: all 0.2s ease;
+                font-size: 0.95rem;
+                padding: 8px 16px;
+                border-radius: 10px;
+                transition: all 0.3s ease;
                 background: transparent;
                 border: none;
                 cursor: pointer;
@@ -51,10 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
             .platform-global-links a:hover, .lang-btn:hover {
                 color: #10b981;
                 background: #f1f5f9;
+                transform: translateY(-2px);
             }
             .platform-global-links a.active {
                 color: #ffffff;
                 background: #10b981;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
             }
             .lang-btn {
                 border: 1px solid #cbd5e1;
@@ -70,8 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         </style>
 
-        <nav class="platform-global-header" id="globalNav">
-            <a href="dashboard.html" class="platform-logo-text">
+        <nav class="platform-global-header">
+            <a href="dashboard.html" class="platform-global-logo">
                 ⚖️ <span data-translate="brand">منصة ميزان - MEEZAN</span>
             </a>
             <div class="platform-global-links">
@@ -85,18 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
 
     document.body.insertAdjacentHTML('afterbegin', headerHTML);
-
-    // تطبيق اتجاه الصفحة واللغة فور التحميل
     applyLanguage(currentLang);
 
-    // تحديد الصفحة النشطة
     const currentPage = window.location.pathname.split("/").pop();
     if (currentPage === "dashboard.html") document.getElementById("nav-dashboard")?.classList.add("active");
     if (currentPage === "meezan.html") document.getElementById("nav-meezan")?.classList.add("active");
     if (currentPage === "admin.html") document.getElementById("nav-admin")?.classList.add("active");
 });
 
-// قاموس الترجمات الأساسي لعناصر المنصة
 const translations = {
     ar: {
         brand: "منصة ميزان - MEEZAN",
@@ -126,17 +128,12 @@ function toggleLanguage() {
 function applyLanguage(lang) {
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     document.documentElement.setAttribute('lang', lang);
-
-    // تغيير النصوص التي تحتوي على وسوم الترجمة
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
             element.innerText = translations[lang][key];
         }
     });
-
     const langBtn = document.getElementById('langToggleBtn');
-    if (langBtn) {
-        langBtn.innerText = translations[lang].langBtn;
-    }
+    if (langBtn) langBtn.innerText = translations[lang].langBtn;
 }
