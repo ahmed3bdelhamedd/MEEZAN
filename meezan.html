@@ -167,7 +167,8 @@
             <h1>منصة ميزان - MEEZAN</h1>
             <p>اعرف ميزانية منطقتك، تابع المشروعات الحكومية، وساهم في تطوير مدينتك بالبلاغات الذكية</p>
             <div class="nav-links">
-                <a href="index.html">← الانتقال لصفحة تحليلات الموازنة والبيانات المالية</a>
+                <a href="index.html">← الرئيسية وتحليلات الموازنة</a>
+                <a href="admin.html">لوحة تحكم المسؤولين</a>
             </div>
         </header>
 
@@ -181,7 +182,30 @@
                     <option value="cairo">القاهرة</option>
                     <option value="giza">الجيزة</option>
                     <option value="alex">الإسكندرية</option>
-                    <option value="qalyubia">القليوبية</option>
+                    <option value="dakahlia">الدقهلية</option>
+                    <option value="redsea">البحر الأحمر</option>
+                    <option value="beheira">البحيرة</option>
+                    <option value="fayoum">الفيوم</option>
+                    <option value="gharbiya">الغربية</option>
+                    <option value="ismailia">الإسماعيلية</option>
+                    <option value="menofia">الموفية</option>
+                    <option value="minya">المنيا</option>
+                    <option value="qaliubiya">القليوبية</option>
+                    options<option value="newvalley">الوادي الجديد</option>
+                    <option value="sharqia">الشرقية</option>
+                    <option value="suez">السويس</option>
+                    <option value="aswan">أسوان</option>
+                    <option value="assiut">أسيوط</option>
+                    <option value="banisuewef">بني سويف</option>
+                    <option value="portsaid">بورسعيد</option>
+                    <option value="damietta">دمياط</option>
+                    <option value="dakahlia">جنوب سيناء</option>
+                    <option value="kafr_elsheikh">كفر الشيخ</option>
+                    <option value="matrouh">مطروح</option>
+                    <option value="qena">قنا</option>
+                    <option value="north_sinai">شمال سيناء</option>
+                    <option value="sohag">سوهاج</option>
+                    <option value="luxor">الأقصر</option>
                 </select>
             </div>
 
@@ -231,14 +255,12 @@
     </div>
 
     <script>
-        // محاكاة سريعة لتغيير بيانات الموازنة حسب المحافظة المختارة
         function updateData() {
             const gov = document.getElementById('governorate').value;
             const stats = document.getElementById('statsContainer');
             
             if (gov) {
                 stats.style.display = 'grid';
-                // أرقام تجريبية تربط فكرة الموازنة بالصفحة
                 document.getElementById('eduBudget').innerText = "450 مليون جنيه";
                 document.getElementById('healthBudget').innerText = "320 مليون جنيه";
                 document.getElementById('roadsProgress').innerText = "78%";
@@ -247,7 +269,6 @@
             }
         }
 
-        // محاكاة عمل الـ AI في تحليل الشكوى فور إرسالها
         function submitReport(event) {
             event.preventDefault();
             const desc = document.getElementById('reportDesc').value.toLowerCase();
@@ -263,7 +284,7 @@
             } else if (desc.includes('طريق') || desc.includes('حفرة') || desc.includes('اسفلت')) {
                 category = "طرق ومواصلات";
                 priority = "متوسطة";
-            } else if (desc.includes('نور') || desc.includes('عصم') || desc.includes('إنارة')) {
+            } else if (desc.includes('نور') || desc.includes('عمود') || desc.includes('إنارة')) {
                 category = "كهرباء وإنارة";
                 priority = "منخفضة";
             }
