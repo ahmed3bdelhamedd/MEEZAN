@@ -15,6 +15,7 @@
             --card-bg: #FFFFFF;
             --text-main: #1E293B;
             --text-muted: #64748B;
+            --danger: #ef4444;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -30,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* زر تغيير اللغة العائم */
         .lang-float-btn {
             position: absolute;
             top: 30px;
@@ -49,16 +49,9 @@
         }
         .lang-float-btn:hover { background: #f1f5f9; color: var(--accent); transform: translateY(-2px); }
 
-        /* تأثيرات الانيميشن الاحترافية */
         @keyframes fadeInScale {
             from { opacity: 0; transform: scale(0.95) translateY(30px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 20px 40px rgba(15, 44, 89, 0.08); }
-            50% { box-shadow: 0 25px 50px rgba(16, 185, 129, 0.12); }
-            100% { box-shadow: 0 20px 40px rgba(15, 44, 89, 0.08); }
         }
 
         .login-container {
@@ -70,7 +63,7 @@
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(15, 44, 89, 0.08);
             overflow: hidden;
-            animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, pulseGlow 5s infinite ease-in-out;
+            animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             border: 1px solid #f1f5f9;
         }
 
@@ -81,75 +74,65 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .login-banner::after {
-            content: '';
-            position: absolute;
-            width: 200px; height: 200px;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 50%;
-            bottom: -50px; right: -50px;
-            animation: floatCircle 6s infinite alternate ease-in-out;
-        }
-
-        @keyframes floatCircle {
-            from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-20px) scale(1.1); }
-        }
-
         .login-banner h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 15px; }
         .login-banner p { font-size: 1.1rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 30px; }
         
         .features-list { list-style: none; }
-        .features-list li { 
-            margin-bottom: 14px; font-size: 1rem; display: flex; align-items: center; gap: 12px;
-            transform: translateX(-10px); opacity: 0;
-            animation: slideInRight 0.6s forwards ease-out;
-        }
-        .features-list li:nth-child(1) { animation-delay: 0.2s; }
-        .features-list li:nth-child(2) { animation-delay: 0.4s; }
-        .features-list li:nth-child(3) { animation-delay: 0.6s; }
+        .features-list li { margin-bottom: 14px; font-size: 1rem; display: flex; align-items: center; gap: 12px; }
 
-        @keyframes slideInRight {
-            to { opacity: 1; transform: translateX(0); }
-        }
+        .login-form-side { padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .login-form-side h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 5px; font-weight: 900; }
+        .login-form-side p.subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
 
-        .login-form-side { padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
-        .login-form-side h2 { color: var(--primary); font-size: 1.8rem; margin-bottom: 8px; font-weight: 900; }
-        .login-form-side p.subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; }
-
-        .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.85rem; color: var(--primary); }
         
         .form-group input, .form-group select {
-            width: 100%; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 14px;
+            width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 12px;
             font-family: 'Cairo', sans-serif; font-size: 0.95rem; outline: none; transition: all 0.3s ease;
             background: #f8fafc;
         }
         .form-group input:focus, .form-group select:focus { 
-            border-color: var(--accent); 
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15); 
+            border-color: var(--accent); background: #ffffff; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15); 
+        }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
+            background: #fee2e2;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
         }
 
         .btn-submit {
-            background: var(--accent); color: white; border: none; width: 100%; padding: 15px;
-            border-radius: 14px; font-family: 'Cairo', sans-serif; font-weight: bold; font-size: 1.05rem;
-            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); margin-top: 10px;
+            background: var(--accent); color: white; border: none; width: 100%; padding: 14px;
+            border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: bold; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); margin-top: 5px;
         }
-        .btn-submit:hover { 
-            background: #059669; 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); 
+        .btn-submit:hover { background: #059669; transform: translateY(-2px); }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
+        .auth-switch a {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .auth-switch a:hover { color: var(--accent); text-decoration: underline; }
 
         .back-home { 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            text-align: center; margin-top: 25px; color: var(--text-muted); text-decoration: none; 
-            font-size: 0.9rem; font-weight: 700; transition: color 0.2s; 
+            display: block; text-align: center; margin-top: 15px; color: var(--text-muted); text-decoration: none; 
+            font-size: 0.85rem; font-weight: 700; transition: color 0.2s; 
         }
         .back-home:hover { color: var(--primary); }
 
@@ -162,24 +145,30 @@
 </head>
 <body>
 
-    <button class="lang-float-btn" onclick="toggleLoginLang()" id="loginLangBtn">English 🌐</button>
+    <button class="lang-float-btn" onclick="toggleAuthLang()" id="authLangBtn">English 🌐</button>
 
     <div class="login-container">
         <div class="login-banner">
-            <h1 data-t="login_banner_title">⚖️ منصة ميزان</h1>
-            <p data-t="login_banner_desc">الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.</p>
+            <h1 data-t="banner_title">⚖️ منصة ميزان</h1>
+            <p data-t="banner_desc">الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.</p>
             <ul class="features-list">
-                <li data-t="login_f1">✅ تتبع مخصصات وموازنات المحافظات لحظياً</li>
-                <li data-t="login_f2">✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي</li>
-                <li data-t="login_f3">✅ لوحة تحكم تفصيلية لصانعي القرار</li>
+                <li data-t="f1">✅ تتبع مخصصات وموازنات المحافظات لحظياً</li>
+                <li data-t="f2">✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي</li>
+                <li data-t="f3">✅ لوحة تحكم تفصيلية لصانعي القرار</li>
             </ul>
         </div>
 
         <div class="login-form-side">
-            <h2 data-t="login_heading">تسجيل الدخول</h2>
-            <p class="subtitle" data-t="login_sub">أدخل بياناتك للوصول إلى لوحات المنصة</p>
+            <h2 id="formTitle" data-t="login_heading">تسجيل الدخول</h2>
+            <p class="subtitle" id="formSub" data-t="login_sub">أدخل بياناتك للوصول إلى لوحات المنصة</p>
 
-            <form onsubmit="handleLogin(event)">
+            <div id="errorAlert" class="error-msg"></div>
+
+            <form onsubmit="handleAuthAction(event)">
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label for="fullname" data-t="name_label">الاسم الكامل</label>
+                    <input type="text" id="fullname" placeholder="أحمد عبدالحميد">
+                </div>
                 <div class="form-group">
                     <label for="email" data-t="email_label">البريد الإلكتروني</label>
                     <input type="email" id="email" placeholder="name@example.com" required>
@@ -196,78 +185,150 @@
                         <option value="analyst" data-t="opt_analyst">محلل بيانات (تحليلات الموازنة)</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit" data-t="submit_btn">دخول للمنصة</button>
+                <button type="submit" class="btn-submit" id="submitBtn" data-t="submit_login">دخول للمنصة</button>
             </form>
+
+            <div class="auth-switch">
+                <span id="switchText" data-t="switch_to_reg">ليس لديك حساب؟</span> 
+                <a onclick="toggleAuthMode()" id="switchLink" data-t="link_reg">إنشاء حساب جديد</a>
+            </div>
             
             <a href="index.html" class="back-home" data-t="back_home">← العودة إلى الصفحة الرئيسية للمشروع</a>
         </div>
     </div>
 
     <script>
-        const loginDict = {
+        let isRegisterMode = false;
+
+        const authDict = {
             ar: {
-                login_banner_title: "⚖️ منصة ميزان",
-                login_banner_desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.",
-                login_f1: "✅ تتبع مخصصات وموازنات المحافظات لحظياً",
-                login_f2: "✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي",
-                login_f3: "✅ لوحة تحكم تفصيلية لصانعي القرار",
+                banner_title: "⚖️ منصة ميزان",
+                banner_desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.",
+                f1: "✅ تتبع مخصصات وموازنات المحافظات لحظياً",
+                f2: "✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي",
+                f3: "✅ لوحة تحكم تفصيلية لصانعي القرار",
                 login_heading: "تسجيل الدخول",
                 login_sub: "أدخل بياناتك للوصول إلى لوحات المنصة",
+                reg_heading: "إنشاء حساب جديد",
+                reg_sub: "سجل بياناتك للانضمام إلى منصة ميزان",
+                name_label: "الاسم الكامل",
                 email_label: "البريد الإلكتروني",
                 pass_label: "كلمة المرور",
                 role_label: "نوع الحساب / الدخول",
                 opt_citizen: "مواطن (بوابة البلاغات والمشروعات)",
                 opt_admin: "مسؤول / صانع قرار (لوحة التحكم)",
                 opt_analyst: "محلل بيانات (تحليلات الموازنة)",
-                submit_btn: "دخول للمنصة",
+                submit_login: "دخول للمنصة",
+                submit_reg: "إنشاء الحساب",
+                switch_to_reg: "ليس لديك حساب؟",
+                link_reg: "إنشاء حساب جديد",
+                switch_to_login: "لديك حساب بالفعل؟",
+                link_login: "تسجيل الدخول",
                 back_home: "← العودة إلى الصفحة الرئيسية للمشروع",
+                err_email: "البريد الإلكتروني غير صالح، يرجى كتابة إيميل صحيح.",
+                err_pass: "كلمة المرور ضعيفة! يجب أن تكون 8 خانات على الأقل وتحتوي على حرف كبير، حرف صغير، رقم، ورمز خاص.",
                 btnText: "English 🌐"
             },
             en: {
-                login_banner_title: "⚖️ MEEZAN Platform",
-                login_banner_desc: "The smart bridge connecting citizens to the state budget and development projects through advanced analytics.",
-                login_f1: "✅ Track governorate allocations and budgets in real-time",
-                login_f2: "✅ AI-powered smart reporting system",
-                login_f3: "✅ Detailed decision-support dashboard",
+                banner_title: "⚖️ MEEZAN Platform",
+                banner_desc: "The smart bridge connecting citizens to the state budget and development projects through advanced analytics.",
+                f1: "✅ Track governorate allocations and budgets in real-time",
+                f2: "✅ AI-powered smart reporting system",
+                f3: "✅ Detailed decision-support dashboard",
                 login_heading: "Sign In",
                 login_sub: "Enter your credentials to access the platform",
+                reg_heading: "Create an Account",
+                reg_sub: "Register your details to join MEEZAN platform",
+                name_label: "Full Name",
                 email_label: "Email Address",
                 pass_label: "Password",
                 role_label: "Account / Role Type",
                 opt_citizen: "Citizen (Reporting & Projects Portal)",
                 opt_admin: "Admin / Decision Maker (Dashboard)",
                 opt_analyst: "Data Analyst (Budget Analytics)",
-                submit_btn: "Login to Platform",
+                submit_login: "Login to Platform",
+                submit_reg: "Register Account",
+                switch_to_reg: "Don't have an account?",
+                link_reg: "Create an account",
+                switch_to_login: "Already have an account?",
+                link_login: "Sign In",
                 back_home: "← Back to Project Home",
+                err_email: "Invalid email address format.",
+                err_pass: "Weak password! Must be at least 8 chars with uppercase, lowercase, number, and special character.",
                 btnText: "العربية 🌐"
             }
         };
 
-        function toggleLoginLang() {
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            const lang = localStorage.getItem('meezanLang') || 'ar';
+            
+            document.getElementById('nameGroup').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('formTitle').innerText = isRegisterMode ? authDict[lang].reg_heading : authDict[lang].login_heading;
+            document.getElementById('formSub').innerText = isRegisterMode ? authDict[lang].reg_sub : authDict[lang].login_sub;
+            document.getElementById('submitBtn').innerText = isRegisterMode ? authDict[lang].submit_reg : authDict[lang].submit_login;
+            document.getElementById('switchText').innerText = isRegisterMode ? authDict[lang].switch_to_login : authDict[lang].switch_to_reg;
+            document.getElementById('switchLink').innerText = isRegisterMode ? authDict[lang].link_login : authDict[lang].link_reg;
+            document.getElementById('errorAlert').style.display = 'none';
+        }
+
+        function toggleAuthLang() {
             let current = localStorage.getItem('meezanLang') || 'ar';
             let next = current === 'ar' ? 'en' : 'ar';
             localStorage.setItem('meezanLang', next);
-            applyLoginLang(next);
+            applyAuthLang(next);
         }
 
-        function applyLoginLang(lang) {
+        function applyAuthLang(lang) {
             document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
             document.documentElement.setAttribute('lang', lang);
+            
             document.querySelectorAll('[data-t]').forEach(el => {
                 let k = el.getAttribute('data-t');
-                if(loginDict[lang][k]) el.innerText = loginDict[lang][k];
+                if(authDict[lang][k]) el.innerText = authDict[lang][k];
             });
-            document.getElementById('loginLangBtn').innerText = loginDict[lang].btnText;
+
+            // تحديث النصوص الحية بناءً على وضع النموذج الحالي
+            document.getElementById('formTitle').innerText = isRegisterMode ? authDict[lang].reg_heading : authDict[lang].login_heading;
+            document.getElementById('formSub').innerText = isRegisterMode ? authDict[lang].reg_sub : authDict[lang].login_sub;
+            document.getElementById('submitBtn').innerText = isRegisterMode ? authDict[lang].submit_reg : authDict[lang].submit_login;
+            document.getElementById('switchText').innerText = isRegisterMode ? authDict[lang].switch_to_login : authDict[lang].switch_to_reg;
+            document.getElementById('switchLink').innerText = isRegisterMode ? authDict[lang].link_login : authDict[lang].link_reg;
+            
+            document.getElementById('authLangBtn').innerText = authDict[lang].btnText;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             let lang = localStorage.getItem('meezanLang') || 'ar';
-            applyLoginLang(lang);
+            applyAuthLang(lang);
         });
 
-        function handleLogin(event) {
+        function handleAuthAction(event) {
             event.preventDefault();
-            // تفعيل حالة تسجيل الدخول أمنياً لكي يسمح النظام بفتح الصفحات الداخلية
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorAlert = document.getElementById('errorAlert');
+            const lang = localStorage.getItem('meezanLang') || 'ar';
+
+            // 1. التحقق من صحة الإيميل
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorAlert.innerText = authDict[lang].err_email;
+                errorAlert.style.display = 'block';
+                return;
+            }
+
+            // 2. التحقق من قوة الباسورد (8 خانات، حرف كبير، حرف صغير، رقم، رمز خاص)
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                errorAlert.innerText = authDict[lang].err_pass;
+                errorAlert.style.display = 'block';
+                return;
+            }
+
+            errorAlert.style.display = 'none';
+
+            // السماح بالدخول وحفظ الحالة أمنياً
             localStorage.setItem('meezanLoggedIn', 'true');
 
             const role = document.getElementById('role').value;
