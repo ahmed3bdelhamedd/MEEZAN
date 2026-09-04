@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة ميزان - MEEZAN | الموازنة والمشاركة المجتمعية</title>
+    <!-- Favicon المربوط من GitHub مباشرة -->
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/ahmed3bdelhamedd/MEEZAN/main/favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -30,7 +32,6 @@
         }
         .dashboard-container { max-width: 1400px; margin: 0 auto; }
         
-        /* تأثير ظهور تدريجي (Fade In Animation) */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -40,7 +41,6 @@
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        /* شريط التنقل */
         .platform-nav {
             display: flex;
             justify-content: space-between;
@@ -69,7 +69,6 @@
             color: var(--accent);
         }
 
-        /* قسم الترحيب وفكرة المشروع */
         .hero-section {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -113,7 +112,6 @@
             transform: translateY(-4px) scale(1.02);
         }
 
-        /* مميزات وأهداف المنصة مع تأثير الحركة عند الهفر */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -135,7 +133,6 @@
         .feature-card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
         .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* قسم الداتا أنالسيز والموازنة في الأسفل */
         .analytics-section-title {
             font-size: 1.5rem;
             color: var(--primary);
@@ -212,7 +209,6 @@
 
     <div class="dashboard-container animated">
         
-        <!-- شريط التنقل -->
         <div class="platform-nav">
             <a href="index.html" class="platform-logo">⚖️ منصة ميزان - MEEZAN</a>
             <div class="platform-links">
@@ -222,7 +218,6 @@
             </div>
         </div>
 
-        <!-- قسم الترحيب وفكرة المشروع -->
         <div class="hero-section">
             <h1>منصة ميزان الرقمية (MEEZAN)</h1>
             <p>جسر التواصل الفعّال بين المواطن والموازنة العامة للدولة والمشروعات التنموية. نحول شكاوى وبلاغات المواطنين إلى بيانات تحليلية دقيقة تساعد صانعي القرار في توجيه الموارد المالية للمكان الصحيح.</p>
@@ -232,7 +227,6 @@
             </div>
         </div>
 
-        <!-- مميزات وأهداف المنصة -->
         <div class="features-grid">
             <div class="feature-card">
                 <h3>🔍 شفافية الموازنة</h3>
@@ -248,7 +242,6 @@
             </div>
         </div>
 
-        <!-- قسم تحليلات الموازنة والبيانات المالية في الأسفل -->
         <div class="analytics-section-title">📊 قسم تحليلات الموازنة العامة والبيانات المالية (Data Analytics)</div>
 
         <div class="header-filter">
@@ -282,7 +275,6 @@
         </div>
 
         <div class="charts-grid">
-            <!-- الشارت الأول -->
             <div class="chart-card full-width">
                 <h2>📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)</h2>
                 <div class="chart-container">
@@ -290,7 +282,6 @@
                 </div>
             </div>
 
-            <!-- الشارت الثاني -->
             <div class="chart-card">
                 <h2>📊 بنود الموازنة للسنة المختارة</h2>
                 <div class="chart-container">
@@ -298,7 +289,6 @@
                 </div>
             </div>
 
-            <!-- الشارت الثالث -->
             <div class="chart-card">
                 <h2>🥧 هيكل الإنفاق الأساسي (%)</h2>
                 <div class="chart-container">
