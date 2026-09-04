@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentPage === "admin.html") document.getElementById("nav-admin")?.classList.add("active");
 });
 
-const globalTranslations = {
+const sharedDictionary = {
     ar: {
         brand: "منصة ميزان - MEEZAN",
         nav_dashboard: "تحليلات الموازنة",
@@ -131,13 +131,13 @@ function applyPlatformLanguage(lang) {
     
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
-        if (globalTranslations[lang] && globalTranslations[lang][key]) {
-            element.innerText = globalTranslations[lang][key];
+        if (sharedDictionary[lang] && sharedDictionary[lang][key]) {
+            element.innerText = sharedDictionary[lang][key];
         }
     });
 
     const langBtn = document.getElementById('langToggleBtn');
     if (langBtn) {
-        langBtn.innerText = globalTranslations[lang].langBtn;
+        langBtn.innerText = sharedDictionary[lang].langBtn;
     }
 }
