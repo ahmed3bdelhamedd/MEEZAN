@@ -255,7 +255,6 @@
     </div>
 
     <script>
-        // قاعدة بيانات مصغرة لربط كل محافظة بميزانياتها ونسب الإنجاز الخاصة بها
         const governoratesData = {
             "cairo": { edu: "720 مليون جنيه", health: "580 مليون جنيه", roads: "85%" },
             "giza": { edu: "650 مليون جنيه", health: "490 مليون جنيه", roads: "80%" },
@@ -302,29 +301,46 @@
 
         function submitReport(event) {
             event.preventDefault();
-            const desc = document.getElementById('reportDesc').value.toLowerCase();
-            const resultBox = document.getElementById('aiResult');
-            const outputText = document.getElementById('aiOutputText');
+            const area = document.getElementById('reportArea').value;
+            const desc = document.getElementById('reportDesc').value;
+            const govSelect = document.getElementById('governorate');
+            const gov = govSelect.options[govSelect.selectedIndex].text;
 
             let category = "خدمات عامة";
             let priority = "متوسطة";
+            const descLower = desc.toLowerCase();
 
-            if (desc.includes('مياه') || desc.includes('ماسورة') || desc.includes('صرف')) {
+            if (descLower.includes('مياه') || descLower.includes('ماسورة') || descLower.includes('صرف')) {
                 category = "مياه وصرف صحي";
-                priority = "عالية (حرجة)";
-            } else if (desc.includes('طريق') || desc.includes('حفرة') || desc.includes('اسفلت')) {
+                priority = "حرجة / عاجلة";
+            } else if (descLower.includes('طريق') || descLower.includes('حفرة') || descLower.includes('اسفلت')) {
                 category = "طرق ومواصلات";
                 priority = "متوسطة";
-            } else if (desc.includes('نور') || desc.includes('عمود') || desc.includes('إنارة')) {
+            } else if (descLower.includes('نور') || descLower.includes('عمود') || descLower.includes('إنارة')) {
                 category = "كهرباء وإنارة";
                 priority = "منخفضة";
             }
 
+            const newReport = {
+                id: "#MS-" + Math.floor(1000 + Math.random() * 9000),
+                location: area + " (" + gov + ")",
+                description: desc,
+                category: category,
+                priority: priority,
+                status: "قيد الإجراء"
+            };
+
+            let reports = JSON.parse(localStorage.getItem('meezanReports')) || [];
+            reports.unshift(newReport);
+            localStorage.setItem('meezanReports', JSON.stringify(reports));
+
+            const resultBox = document.getElementById('aiResult');
+            const outputText = document.getElementById('aiOutputText');
             resultBox.style.display = 'block';
-            outputText.innerHTML = `تم استلام البلاغ وتحليله بنجاح!<br>
+            outputText.innerHTML = `تم استلام البلاغ وتحليله بنجاح وحفظه في النظام!<br>
             - التصنيف المكتشف بالذكاء الاصطناعي: <strong>${category}</strong><br>
             - مستوى الأولوية المقدر: <strong>${priority}</strong><br>
-            - تم توجيه البلاغ للوحة تحكم المسؤولين واتخاذه كبيانات داعمة لتوجيه الموارد.`;
+            - تم إرسال البيانات مباشرة إلى لوحة تحكم المسؤولين.`;
             
             document.getElementById('reportForm').reset();
         }
