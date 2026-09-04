@@ -24,28 +24,95 @@
             line-height: 1.6;
         }
         
+        /* تصميم الهيدر الاحترافي مع القائمة المنسدلة */
         .landing-nav {
             max-width: 1200px;
-            margin: 20px auto 0 auto;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
+            margin: 25px auto 0 auto;
+            padding: 15px 35px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(15, 44, 89, 0.05);
             border: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 1000;
         }
-        .logo { font-weight: 900; color: var(--primary); font-size: 1.4rem; text-decoration: none; }
+        .logo { font-weight: 900; color: var(--primary); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; gap: 10px; }
         .nav-actions { display: flex; gap: 15px; align-items: center; }
         
+        /* تصميم زر القائمة المنسدلة (Dropdown) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: #f8fafc;
+            color: var(--primary);
+            border: 2px solid #e2e8f0;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .dropbtn:hover {
+            border-color: var(--accent);
+            background: #f1f5f9;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0 15px 35px rgba(15, 44, 89, 0.1);
+            border-radius: 16px;
+            padding: 10px;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+            animation: dropdownFade 0.3s ease-out forwards;
+        }
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f5f9;
+            color: var(--accent);
+            transform: translateX(-4px);
+        }
+        html[lang="en"] .dropdown-content a:hover {
+            transform: translateX(4px);
+        }
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+
         .btn-login {
             background: var(--primary); 
             border: 2px solid var(--primary); 
             color: white;
-            padding: 8px 20px; 
-            border-radius: 10px; 
+            padding: 10px 24px; 
+            border-radius: 12px; 
             font-weight: bold; 
             text-decoration: none; 
             transition: all 0.3s;
@@ -53,15 +120,15 @@
         .btn-login:hover { 
             background: var(--secondary); 
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(15, 44, 89, 0.2);
+            box-shadow: 0 6px 20px rgba(15, 44, 89, 0.25);
         }
         
         .lang-btn {
-            background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 14px;
-            border-radius: 10px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; color: var(--primary);
-            transition: all 0.2s;
+            background: #f8fafc; border: 2px solid #e2e8f0; padding: 10px 18px;
+            border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; color: var(--primary);
+            transition: all 0.3s;
         }
-        .lang-btn:hover { background: #e2e8f0; }
+        .lang-btn:hover { background: #f1f5f9; border-color: var(--accent); }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -71,20 +138,22 @@
 
         .hero {
             max-width: 1200px;
-            margin: 50px auto;
-            padding: 60px 40px;
+            margin: 40px auto;
+            padding: 80px 40px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 24px;
+            border-radius: 30px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(15, 44, 89, 0.15);
+            box-shadow: 0 25px 50px rgba(15, 44, 89, 0.18);
+            position: relative;
+            overflow: hidden;
         }
-        .hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; }
-        .hero p { font-size: 1.2rem; color: #E2E8F0; max-width: 800px; margin: 0 auto 30px auto; }
-        .hero-btns { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+        .hero p { font-size: 1.25rem; color: #E2E8F0; max-width: 850px; margin: 0 auto 35px auto; line-height: 1.8; }
+        .hero-btns { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
         .btn-main {
-            background: var(--accent); color: white; padding: 14px 28px; border-radius: 12px;
-            font-weight: bold; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            background: var(--accent); color: white; padding: 15px 32px; border-radius: 14px;
+            font-weight: bold; text-decoration: none; transition: all 0.3s; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
         }
         .btn-main:hover { background: #059669; transform: translateY(-3px); }
 
@@ -93,51 +162,51 @@
             margin: 60px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
         }
         .feature-card {
-            background: var(--card-bg); padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;
-            transition: transform 0.3s;
+            background: var(--card-bg); padding: 35px; border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
         }
-        .feature-card:hover { transform: translateY(-6px); }
-        .feature-card h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.3rem; font-weight: 900; }
-        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
+        .feature-card h3 { color: var(--primary); margin-bottom: 14px; font-size: 1.35rem; font-weight: 900; }
+        .feature-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
 
         .team-section {
             max-width: 1200px;
-            margin: 80px auto;
+            margin: 90px auto;
             padding: 0 20px;
             text-align: center;
         }
-        .team-section h2 { font-size: 2.2rem; color: var(--primary); margin-bottom: 15px; font-weight: 900; }
-        .team-section .subtitle { color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; }
+        .team-section h2 { font-size: 2.3rem; color: var(--primary); margin-bottom: 12px; font-weight: 900; }
+        .team-section .subtitle { color: var(--text-muted); margin-bottom: 45px; font-size: 1.15rem; }
         
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
             justify-content: center;
         }
         .team-card {
-            background: var(--card-bg); padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04); border: 1px solid #f1f5f9;
-            transition: transform 0.3s; text-align: center;
+            background: var(--card-bg); padding: 35px; border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9;
+            transition: all 0.3s ease; text-align: center;
         }
-        .team-card:hover { transform: translateY(-8px); }
+        .team-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
         .team-avatar {
-            width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
             margin: 0 auto 20px auto; border: 4px solid var(--accent);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
         }
-        .team-card h3 { color: var(--primary); font-size: 1.25rem; font-weight: 900; margin-bottom: 5px; }
-        .team-card p.role { color: var(--accent); font-weight: bold; font-size: 0.95rem; margin-bottom: 12px; }
-        .team-card p.desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+        .team-card h3 { color: var(--primary); font-size: 1.3rem; font-weight: 900; margin-bottom: 6px; }
+        .team-card p.role { color: var(--accent); font-weight: bold; font-size: 0.95rem; margin-bottom: 14px; }
+        .team-card p.desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
 
         footer {
             text-align: center; padding: 40px; color: var(--text-muted);
-            border-top: 1px solid #e2e8f0; margin-top: 80px; font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0; margin-top: 90px; font-size: 1rem;
         }
     </style>
 </head>
@@ -145,7 +214,20 @@
 
     <div class="landing-nav animated">
         <a href="index.html" class="logo">⚖️ <span data-t="logo_text">منصة ميزان - MEEZAN</span></a>
+        
         <div class="nav-actions">
+            <!-- قائمة منسدلة لاختيار وتنقل الصفحات -->
+            <div class="dropdown" id="pagesDropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">
+                    <span data-t="nav_menu_title">📁 صفحات المنصة</span> ▾
+                </button>
+                <div class="dropdown-content">
+                    <a href="dashboard.html" data-t="nav_dash">📊 تحليلات الموازنة</a>
+                    <a href="meezan.html" data-t="nav_citizen">📝 بوابة البلاغات</a>
+                    <a href="admin.html" data-t="nav_admin">🔐 لوحة المسؤولين</a>
+                </div>
+            </div>
+
             <button class="lang-btn" onclick="toggleLang()" id="langBtn">English 🌐</button>
             <a href="login.html" class="btn-login" data-t="enter_platform">تسجيل الدخول</a>
         </div>
@@ -203,9 +285,27 @@
     </footer>
 
     <script>
+        // إظهار وإخفاء القائمة المنسدلة عند الضغط عليها
+        function toggleDropdown() {
+            const dropdown = document.getElementById('pagesDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // إغلاق القائمة المنسدلة عند النقر في أي مكان خارجها
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('pagesDropdown');
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
         const dict = {
             ar: {
                 logo_text: "منصة ميزان - MEEZAN",
+                nav_menu_title: "📁 صفحات المنصة",
+                nav_dash: "📊 تحليلات الموازنة",
+                nav_citizen: "📝 بوابة البلاغات",
+                nav_admin: "🔐 لوحة المسؤولين",
                 enter_platform: "تسجيل الدخول",
                 hero_title: "منصة ميزان الرقمية (MEEZAN)",
                 hero_desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية. نحول بلاغات وشكاوى المواطنين إلى مؤشرات تحليلية دقيقة تدعم متخذ القرار.",
@@ -230,6 +330,10 @@
             },
             en: {
                 logo_text: "MEEZAN Platform",
+                nav_menu_title: "📁 Platform Pages",
+                nav_dash: "📊 Budget Analytics",
+                nav_citizen: "📝 Citizen Portal",
+                nav_admin: "🔐 Admin Dashboard",
                 enter_platform: "Sign In",
                 hero_title: "MEEZAN Digital Platform",
                 hero_desc: "The smart bridge connecting citizens to the state budget and development projects. We transform citizen reports into accurate analytical indicators.",
