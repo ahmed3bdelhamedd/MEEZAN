@@ -6,11 +6,11 @@
     <title>منصة ميزان - بوابة البلاغات والمشروعات</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ahmed3bdelhamedd/MEEZAN/main/download.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <script src="header.js"></script>
     <style>
         :root {
             --primary-color: #10b981;
             --primary-dark: #059669;
+            --primary-blue: #0F2C59;
             --bg-color: #f8fafc;
             --text-color: #1e293b;
             --card-bg: #ffffff;
@@ -24,6 +24,111 @@
             line-height: 1.6;
             padding: 0 25px 25px 25px;
         }
+
+        /* تنسيق الهيدر الثابت داخل الصفحة مباشرة */
+        .platform-global-header {
+            max-width: 1400px;
+            margin: 20px auto 30px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid #e2e8f0;
+            padding: 15px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px -2px rgba(15, 44, 89, 0.05);
+            border-radius: 16px;
+        }
+        .platform-global-logo {
+            font-weight: 900;
+            color: var(--primary-blue);
+            font-size: 1.35rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .platform-global-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* تصميم القائمة المنسدلة (Dropdown) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: #f8fafc;
+            color: var(--primary-blue);
+            border: 2px solid #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+        .dropbtn:hover { border-color: var(--primary-color); background: #f1f5f9; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 120%;
+            background-color: #ffffff;
+            min-width: 210px;
+            box-shadow: 0 15px 35px rgba(15, 44, 89, 0.1);
+            border-radius: 14px;
+            padding: 8px;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+        html[dir="rtl"] .dropdown-content { right: 0; left: auto; }
+        html[dir="ltr"] .dropdown-content { left: 0; right: auto; }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-weight: 700;
+            font-size: 0.88rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .dropdown-content a:hover { background-color: #f1f5f9; color: var(--primary-color); }
+        .dropdown.active .dropdown-content { display: block; }
+
+        .lang-btn {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--primary-blue);
+            transition: all 0.3s;
+        }
+        .lang-btn:hover { background: #f1f5f9; border-color: var(--primary-color); }
+
+        .logout-btn {
+            text-decoration: none;
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: #fee2e2;
+            border: 2px solid #fecaca;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover { background: #fecaca; }
+
         .container { max-width: 1000px; margin: 0 auto; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(25px); }
@@ -34,7 +139,7 @@
             background: var(--card-bg); border-radius: 18px; padding: 35px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03); margin-bottom: 30px; border: 1px solid #f1f5f9;
         }
-        .card h2 { margin-bottom: 20px; font-size: 1.4rem; color: #0F2C59; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; font-weight: 900; }
+        .card h2 { margin-bottom: 20px; font-size: 1.4rem; color: var(--primary-blue); border-bottom: 2px solid var(--border-color); padding-bottom: 12px; font-weight: 900; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; }
         select, input, textarea {
@@ -43,19 +148,41 @@
         }
         select:focus, input:focus, textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
         textarea { resize: vertical; height: 120px; }
-        button {
+        button[type="submit"] {
             background-color: var(--primary-color); color: white; border: none; padding: 14px 24px;
             font-size: 1rem; font-weight: bold; border-radius: 12px; cursor: pointer; transition: all 0.3s; width: 100%; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
-        button:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+        button[type="submit"]:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
         .info-box { background: #f8fafc; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #e2e8f0; }
         .info-box h3 { color: var(--primary-dark); margin-bottom: 5px; font-size: 1.1rem; }
-        .info-box p { font-size: 1.3rem; font-weight: bold; color: #0F2C59; }
+        .info-box p { font-size: 1.3rem; font-weight: bold; color: var(--primary-blue); }
         #aiResult { margin-top: 20px; padding: 20px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; display: none; }
     </style>
 </head>
 <body>
+
+    <!-- الهيدر الثابت المدمج مباشرة في الصفحة -->
+    <nav class="platform-global-header animated">
+        <a href="dashboard.html" class="platform-global-logo">
+            ⚖️ <span data-translate="brand">منصة ميزان - MEEZAN</span>
+        </a>
+        <div class="platform-global-links">
+            <div class="dropdown" id="globalDropdown">
+                <button class="dropbtn" onclick="toggleGlobalDropdown()">
+                    <span data-translate="nav_menu_title">📁 صفحات المنصة</span> ▾
+                </button>
+                <div class="dropdown-content">
+                    <a href="dashboard.html" data-translate="nav_dash">📊 تحليلات الموازنة</a>
+                    <a href="meezan.html" data-translate="nav_citizen">📝 بوابة البلاغات</a>
+                    <a href="admin.html" data-translate="admin_link">🔐 لوحة المسؤولين</a>
+                </div>
+            </div>
+
+            <button class="lang-btn" onclick="togglePlatformLanguage()" id="langToggleBtn">English 🌐</button>
+            <a href="login.html" onclick="logoutUser()" class="logout-btn" data-translate="nav_logout">تسجيل الخروج</a>
+        </div>
+    </nav>
 
     <div class="container animated">
         <div class="card">
@@ -136,8 +263,38 @@
     </div>
 
     <script>
-        if (typeof sharedDictionary !== 'undefined') {
-            Object.assign(sharedDictionary.ar, {
+        // التحقق من الحماية وتسجيل الدخول
+        document.addEventListener("DOMContentLoaded", function () {
+            const isLoggedIn = localStorage.getItem('meezanLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = "login.html";
+                return;
+            }
+            let lang = localStorage.getItem('meezanLang') || 'ar';
+            applyPlatformLanguage(lang);
+        });
+
+        function toggleGlobalDropdown() {
+            const dropdown = document.getElementById('globalDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('globalDropdown');
+            if (dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        const sharedDictionary = {
+            ar: {
+                brand: "منصة ميزان - MEEZAN",
+                nav_menu_title: "📁 صفحات المنصة",
+                nav_dash: "📊 تحليلات الموازنة",
+                nav_citizen: "📝 بوابة البلاغات",
+                admin_link: "🔐 لوحة المسؤولين",
+                nav_logout: "تسجيل الخروج",
+                langBtn: "English 🌐",
                 meezan_card1_title: "متابعة الموازنة والمشروعات حسب المحافظة",
                 meezan_gov_label: "اختر المحافظة:",
                 gov_default: "-- اختر المحافظة --",
@@ -150,9 +307,15 @@
                 meezan_img_label: "إرفاق صورة للمشكلة:",
                 meezan_submit_btn: "إرسال البلاغ للتحليل والمعالجة",
                 meezan_ai_title: "تحليل النظام الذكي (AI Analysis):"
-            });
-
-            Object.assign(sharedDictionary.en, {
+            },
+            en: {
+                brand: "MEEZAN Platform",
+                nav_menu_title: "📁 Platform Pages",
+                nav_dash: "📊 Budget Analytics",
+                nav_citizen: "📝 Citizen Portal",
+                admin_link: "🔐 Admin Dashboard",
+                nav_logout: "Logout",
+                langBtn: "العربية 🌐",
                 meezan_card1_title: "Budget & Projects Tracking by Governorate",
                 meezan_gov_label: "Select Governorate:",
                 gov_default: "-- Select Governorate --",
@@ -165,7 +328,36 @@
                 meezan_img_label: "Attach Problem Image:",
                 meezan_submit_btn: "Submit Report for Analysis & Processing",
                 meezan_ai_title: "Smart System Analysis (AI Analysis):"
+            }
+        };
+
+        function togglePlatformLanguage() {
+            let currentLang = localStorage.getItem('meezanLang') || 'ar';
+            let newLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('meezanLang', newLang);
+            applyPlatformLanguage(newLang);
+            location.reload();
+        }
+
+        function applyPlatformLanguage(lang) {
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', lang);
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (sharedDictionary[lang] && sharedDictionary[lang][key]) {
+                    element.innerText = sharedDictionary[lang][key];
+                }
             });
+
+            const langBtn = document.getElementById('langToggleBtn');
+            if (langBtn) {
+                langBtn.innerText = sharedDictionary[lang].langBtn;
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('meezanLoggedIn');
         }
 
         const governoratesData = {
