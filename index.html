@@ -16,11 +16,7 @@
             --text-main: #1E293B;
             --text-muted: #64748B;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Cairo', sans-serif;
             background: var(--bg-color);
@@ -31,18 +27,21 @@
             padding: 20px;
             color: var(--text-main);
         }
-
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
         .login-container {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
             max-width: 950px;
             width: 100%;
             background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(15, 44, 89, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(15, 44, 89, 0.08);
             overflow: hidden;
+            animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
         .login-banner {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -51,155 +50,58 @@
             flex-direction: column;
             justify-content: center;
         }
-
-        .login-banner h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-
-        .login-banner p {
-            font-size: 1.05rem;
-            color: #E2E8F0;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-
-        .features-list {
-            list-style: none;
-        }
-
-        .features-list li {
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .login-form-side {
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .login-form-side h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            font-weight: 900;
-        }
-
-        .login-form-side p.subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
+        .login-banner h1 { font-size: 2.3rem; font-weight: 900; margin-bottom: 15px; }
+        .login-banner p { font-size: 1.05rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 25px; }
+        .features-list { list-style: none; }
+        .features-list li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+        .login-form-side { padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
+        .login-form-side h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 8px; font-weight: 900; }
+        .login-form-side p.subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
         .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
+            width: 100%; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 12px;
+            font-family: 'Cairo', sans-serif; font-size: 0.95rem; outline: none; transition: all 0.3s;
         }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--accent);
-        }
-
+        .form-group input:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
         .btn-submit {
-            background: var(--accent);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-            margin-top: 10px;
+            background: var(--accent); color: white; border: none; width: 100%; padding: 14px;
+            border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: bold; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); margin-top: 10px;
         }
-
-        .btn-submit:hover {
-            background: #059669;
-            transform: translateY(-2px);
-        }
-
-        .guest-links {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .guest-links a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: bold;
-            margin: 0 5px;
-        }
-
-        .guest-links a:hover {
-            text-decoration: underline;
-        }
-
-        @media(max-width: 768px) {
-            .login-container { grid-template-columns: 1fr; }
-            .login-banner { padding: 30px 20px; }
-            .login-form-side { padding: 30px 20px; }
-        }
+        .btn-submit:hover { background: #059669; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+        .guest-links { margin-top: 25px; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
+        .guest-links a { color: var(--primary); text-decoration: none; font-weight: bold; margin: 0 5px; transition: color 0.2s; }
+        .guest-links a:hover { color: var(--accent); text-decoration: underline; }
+        @media(max-width: 768px) { .login-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <!-- الجانب الترحيبي -->
         <div class="login-banner">
             <h1>⚖️ منصة ميزان</h1>
-            <p>الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية. حول شكواك لبيانات تدعم اتخاذ القرار.</p>
+            <p>الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.</p>
             <ul class="features-list">
-                <li>✅ تتبع مخصصات وموازنات محافظتك لحظياً</li>
+                <li>✅ تتبع مخصصات وموازنات المحافظات لحظياً</li>
                 <li>✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي</li>
                 <li>✅ لوحة تحكم تفصيلية لصانعي القرار</li>
             </ul>
         </div>
 
-        <!-- جانب تسجيل الدخول -->
         <div class="login-form-side">
             <h2>تسجيل الدخول</h2>
-            <p class="subtitle">أدخل بياناتك للوصول إلى المنصة</p>
+            <p class="subtitle">أدخل بياناتك للوصول إلى لوحات المنصة</p>
 
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label for="email">البريد الإلكتروني</label>
-                    <input type="email5" id="email" placeholder="name@example.com" required>
+                    <input type="email" id="email" placeholder="name@example.com" required>
                 </div>
-
                 <div class="form-group">
                     <label for="password">كلمة المرور</label>
                     <input type="password" id="password" placeholder="••••••••" required>
                 </div>
-
                 <div class="form-group">
                     <label for="role">نوع الحساب / الدخول</label>
                     <select id="role">
@@ -208,12 +110,11 @@
                         <option value="analyst">محلل بيانات (تحليلات الموازنة)</option>
                     </select>
                 </div>
-
                 <button type="submit" class="btn-submit">دخول للمنصة</button>
             </form>
 
             <div class="guest-links">
-                أو تصفح مباشر: 
+                تصفح مباشر: 
                 <a href="dashboard.html">التحليلات المالية</a> | 
                 <a href="meezan.html">بوابة المواطن</a>
             </div>
@@ -224,15 +125,9 @@
         function handleLogin(event) {
             event.preventDefault();
             const role = document.getElementById('role').value;
-
-            // توجيه المستخدم حسب نوع الحساب المختار
-            if (role === 'admin') {
-                window.location.href = 'admin.html';
-            } else if (role === 'citizen') {
-                window.location.href = 'meezan.html';
-            } else {
-                window.location.href = 'dashboard.html';
-            }
+            if (role === 'admin') window.location.href = 'admin.html';
+            else if (role === 'citizen') window.location.href = 'meezan.html';
+            else window.location.href = 'dashboard.html';
         }
     </script>
 </body>
