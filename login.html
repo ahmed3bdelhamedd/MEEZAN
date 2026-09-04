@@ -146,13 +146,9 @@
             box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); 
         }
 
-        .guest-links { margin-top: 25px; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
-        .guest-links a { color: var(--primary); text-decoration: none; font-weight: bold; margin: 0 5px; transition: color 0.2s; }
-        .guest-links a:hover { color: var(--accent); text-decoration: underline; }
-
         .back-home { 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            text-align: center; margin-top: 20px; color: var(--text-muted); text-decoration: none; 
+            text-align: center; margin-top: 25px; color: var(--text-muted); text-decoration: none; 
             font-size: 0.9rem; font-weight: 700; transition: color 0.2s; 
         }
         .back-home:hover { color: var(--primary); }
@@ -202,12 +198,6 @@
                 </div>
                 <button type="submit" class="btn-submit" data-t="submit_btn">دخول للمنصة</button>
             </form>
-
-            <div class="guest-links">
-                <span data-t="direct_browse">تصفح مباشر:</span> 
-                <a href="dashboard.html" data-t="link_dash">التحليلات المالية</a> | 
-                <a href="meezan.html" data-t="link_citizen">بوابة المواطن</a>
-            </div>
             
             <a href="index.html" class="back-home" data-t="back_home">← العودة إلى الصفحة الرئيسية للمشروع</a>
         </div>
@@ -230,9 +220,6 @@
                 opt_admin: "مسؤول / صانع قرار (لوحة التحكم)",
                 opt_analyst: "محلل بيانات (تحليلات الموازنة)",
                 submit_btn: "دخول للمنصة",
-                direct_browse: "تصفح مباشر:",
-                link_dash: "التحليلات المالية",
-                link_citizen: "بوابة المواطن",
                 back_home: "← العودة إلى الصفحة الرئيسية للمشروع",
                 btnText: "English 🌐"
             },
@@ -251,9 +238,6 @@
                 opt_admin: "Admin / Decision Maker (Dashboard)",
                 opt_analyst: "Data Analyst (Budget Analytics)",
                 submit_btn: "Login to Platform",
-                direct_browse: "Direct Browse:",
-                link_dash: "Financial Analytics",
-                link_citizen: "Citizen Portal",
                 back_home: "← Back to Project Home",
                 btnText: "العربية 🌐"
             }
@@ -283,6 +267,9 @@
 
         function handleLogin(event) {
             event.preventDefault();
+            // تفعيل حالة تسجيل الدخول أمنياً لكي يسمح النظام بفتح الصفحات الداخلية
+            localStorage.setItem('meezanLoggedIn', 'true');
+
             const role = document.getElementById('role').value;
             if (role === 'admin') window.location.href = 'admin.html';
             else if (role === 'citizen') window.location.href = 'meezan.html';
