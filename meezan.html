@@ -115,11 +115,11 @@
             <form id="reportForm" onsubmit="submitReport(event)">
                 <div class="form-group">
                     <label for="reportArea" data-translate="meezan_area_label">المنطقة أو الحي بالتحديد:</label>
-                    <input type="text" id="reportArea" placeholder="مثال: الحي الأول، مركز المدينة..." data-translate-placeholder="meezan_area_ph" required>
+                    <input type="text" id="reportArea" placeholder="مثال: الحي الأول، مركز المدينة..." required>
                 </div>
                 <div class="form-group">
                     <label for="reportDesc" data-translate="meezan_desc_label">وصف المشكلة (طريق مكسور، كسر مياه، إنارة...):</label>
-                    <textarea id="reportDesc" placeholder="اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها..." data-translate-placeholder="meezan_desc_ph" required></textarea>
+                    <textarea id="reportDesc" placeholder="اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها..." required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="reportImage" data-translate="meezan_img_label">إرفاق صورة للمشكلة:</label>
@@ -136,7 +136,6 @@
     </div>
 
     <script>
-        // دمج مفاتيح الترجمة الخاصة ببوابة البلاغات مع القاموس العام في header.js
         if (typeof sharedDictionary !== 'undefined') {
             Object.assign(sharedDictionary.ar, {
                 meezan_card1_title: "متابعة الموازنة والمشروعات حسب المحافظة",
@@ -147,9 +146,7 @@
                 meezan_roads: "نسبة تنفيذ مشروعات الطرق",
                 meezan_card2_title: "نظام البلاغات والشكاوى المدعوم بالذكاء الاصطناعي",
                 meezan_area_label: "المنطقة أو الحي بالتحديد:",
-                meezan_area_ph: "مثال: الحي الأول، مركز المدينة...",
                 meezan_desc_label: "وصف المشكلة (طريق مكسور، كسر مياه، إنارة...):",
-                meezan_desc_ph: "اكتب تفاصيل المشكلة هنا ليقوم الـ AI بتحليلها...",
                 meezan_img_label: "إرفاق صورة للمشكلة:",
                 meezan_submit_btn: "إرسال البلاغ للتحليل والمعالجة",
                 meezan_ai_title: "تحليل النظام الذكي (AI Analysis):"
@@ -164,9 +161,7 @@
                 meezan_roads: "Road Projects Progress Rate",
                 meezan_card2_title: "AI-Powered Reporting & Complaints System",
                 meezan_area_label: "Specific Area or District:",
-                meezan_area_ph: "Example: First District, City Center...",
                 meezan_desc_label: "Problem Description (Broken road, water leak, lighting...):",
-                meezan_desc_ph: "Type the problem details here for AI analysis...",
                 meezan_img_label: "Attach Problem Image:",
                 meezan_submit_btn: "Submit Report for Analysis & Processing",
                 meezan_ai_title: "Smart System Analysis (AI Analysis):"
