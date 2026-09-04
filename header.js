@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. نظام حماية الصفحات: التحقق مما إذا كان المستخدم قد سجل دخوله
     const currentPage = window.location.pathname.split("/").pop();
     const isLoggedIn = localStorage.getItem('meezanLoggedIn');
 
-    // إذا لم يكن مسجلاً دخوله وهو في صفحة محمية، يتم توجيهه لصفحة الدخول فوراً
     if (!isLoggedIn && currentPage !== "login.html" && currentPage !== "index.html" && currentPage !== "") {
         window.location.href = "login.html";
         return;
     }
 
-    // إذا كان في الصفحة الرئيسية (index.html) أو صفحة الدخول، لا داعي لإظهار هيدر المنصة الداخلي
     if (currentPage === "index.html" || currentPage === "login.html" || currentPage === "") {
         return;
     }
@@ -33,11 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-family: 'Cairo', sans-serif;
                 margin-bottom: 30px;
                 border-radius: 0 0 16px 16px;
-                animation: slideDown 0.6s ease-out;
-            }
-            @keyframes slideDown {
-                from { transform: translateY(-100%); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
             }
             .platform-global-logo {
                 font-weight: 900;
@@ -47,15 +39,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                white-space: nowrap;
             }
             .platform-global-links {
                 display: flex;
                 gap: 12px;
                 align-items: center;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
             }
             
-            /* تصميم القائمة المنسدلة في الهيدر الداخلي */
+            /* القائمة المنسدلة */
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -70,9 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-weight: bold;
                 font-size: 0.9rem;
                 cursor: pointer;
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 gap: 6px;
+                white-space: nowrap;
                 transition: all 0.3s ease;
             }
             .dropbtn:hover {
@@ -82,8 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .dropdown-content {
                 display: none;
                 position: absolute;
-                top: 120%;
-                right: 0;
+                top: 130%;
                 background-color: #ffffff;
                 min-width: 210px;
                 box-shadow: 0 15px 35px rgba(15, 44, 89, 0.1);
@@ -91,12 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 padding: 8px;
                 z-index: 1000;
                 border: 1px solid #e2e8f0;
-                animation: dropdownFade 0.3s ease-out forwards;
             }
-            @keyframes dropdownFade {
-                from { opacity: 0; transform: translateY(-10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
+            /* تحديد اتجاه القائمة المنسدلة بناءً على لغة الصفحة */
+            html[dir="rtl"] .dropdown-content { right: 0; left: auto; }
+            html[dir="ltr"] .dropdown-content { left: 0; right: auto; }
+
             .dropdown-content a {
                 color: #1e293b;
                 padding: 10px 14px;
@@ -124,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 font-weight: bold;
                 cursor: pointer;
                 color: #0F2C59;
+                white-space: nowrap;
                 transition: all 0.3s;
             }
             .lang-btn:hover { background: #f1f5f9; border-color: #10b981; }
@@ -137,11 +130,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 border-radius: 12px;
                 background: #fee2e2;
                 border: 2px solid #fecaca;
+                white-space: nowrap;
                 transition: all 0.3s ease;
             }
             .logout-btn:hover {
                 background: #fecaca;
-                transform: translateY(-2px);
+            }
+
+            @media(max-width: 768px) {
+                .platform-global-header { padding: 12px 15px; flex-direction: column; gap: 15px; }
+                .platform-global-links { width: 100%; justify-content: center; flex-wrap: wrap; }
             }
         </style>
 
@@ -150,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 ⚖️ <span data-translate="brand">منصة ميزان - MEEZAN</span>
             </a>
             <div class="platform-global-links">
-                <!-- قائمة منسدلة داخل الهيدر -->
                 <div class="dropdown" id="globalDropdown">
                     <button class="dropbtn" onclick="toggleGlobalDropdown()">
                         <span data-translate="nav_menu_title">📁 صفحات المنصة</span> ▾
@@ -172,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
     applyPlatformLanguage(currentLang);
 });
 
-// إظهار وإخفاء القائمة المنسدلة في الهيدر الداخلي
 function toggleGlobalDropdown() {
     const dropdown = document.getElementById('globalDropdown');
     dropdown.classList.toggle('active');
@@ -211,7 +207,6 @@ function togglePlatformLanguage() {
     let newLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('meezanLang', newLang);
     applyPlatformLanguage(newLang);
-    // إعادة تحميل خفيفة لتحديث النصوص الديناميكية في الصفحات الداخلية إن وجدت
     location.reload();
 }
 
