@@ -24,7 +24,6 @@
             line-height: 1.6;
         }
         
-        /* الهيدر العلوي للصفحة الرئيسية */
         .landing-nav {
             max-width: 1200px;
             margin: 20px auto 0 auto;
@@ -40,15 +39,29 @@
         }
         .logo { font-weight: 900; color: var(--primary); font-size: 1.4rem; text-decoration: none; }
         .nav-actions { display: flex; gap: 15px; align-items: center; }
+        
         .btn-login {
-            background: transparent; border: 2px solid var(--primary); color: var(--primary);
-            padding: 8px 20px; border-radius: 10px; font-weight: bold; text-decoration: none; transition: all 0.3s;
+            background: var(--primary); 
+            border: 2px solid var(--primary); 
+            color: white;
+            padding: 8px 20px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            transition: all 0.3s;
         }
-        .btn-login:hover { background: var(--primary); color: white; }
+        .btn-login:hover { 
+            background: var(--secondary); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 44, 89, 0.2);
+        }
+        
         .lang-btn {
             background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 14px;
             border-radius: 10px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; color: var(--primary);
+            transition: all 0.2s;
         }
+        .lang-btn:hover { background: #e2e8f0; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -56,7 +69,6 @@
         }
         .animated { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* قسم البطل (Hero Section) */
         .hero {
             max-width: 1200px;
             margin: 50px auto;
@@ -76,7 +88,6 @@
         }
         .btn-main:hover { background: #059669; transform: translateY(-3px); }
 
-        /* قسم مميزات المنصة */
         .features {
             max-width: 1200px;
             margin: 60px auto;
@@ -94,7 +105,6 @@
         .feature-card h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.3rem; font-weight: 900; }
         .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* قسم فريق العمل */
         .team-section {
             max-width: 1200px;
             margin: 80px auto;
@@ -125,7 +135,6 @@
         .team-card p.role { color: var(--accent); font-weight: bold; font-size: 0.95rem; margin-bottom: 12px; }
         .team-card p.desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
-        /* التذييل (Footer) */
         footer {
             text-align: center; padding: 40px; color: var(--text-muted);
             border-top: 1px solid #e2e8f0; margin-top: 80px; font-size: 0.95rem;
@@ -138,7 +147,7 @@
         <a href="index.html" class="logo">⚖️ <span data-t="logo_text">منصة ميزان - MEEZAN</span></a>
         <div class="nav-actions">
             <button class="lang-btn" onclick="toggleLang()" id="langBtn">English 🌐</button>
-            <a href="dashboard.html" class="btn-login" data-t="enter_platform">دخول المنصة</a>
+            <a href="login.html" class="btn-login" data-t="enter_platform">تسجيل الدخول</a>
         </div>
     </div>
 
@@ -147,7 +156,7 @@
         <p data-t="hero_desc">الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية. نحول بلاغات وشكاوى المواطنين إلى مؤشرات تحليلية دقيقة تدعم متخذ القرار.</p>
         <div class="hero-btns">
             <a href="dashboard.html" class="btn-main" data-t="explore_dash">📊 استكشف تحليلات الموازنة</a>
-            <a href="meezan.html" class="btn-login" style="color: white; border-color: white;" data-t="explore_citizen">🚀 بوابة البلاغات الذكية</a>
+            <a href="login.html" class="btn-login" style="background: transparent; border-color: white;" data-t="enter_platform">🔐 تسجيل الدخول للوحة التحكم</a>
         </div>
     </div>
 
@@ -172,14 +181,14 @@
         <p class="subtitle" data-t="team_sub">النخبة التقنية خلف تصميم وتطوير منصة ميزان</p>
         
         <div class="team-grid">
-            <!-- العضو الأول -->
+            <!-- العضو الأول مع ربط صورتك الشخصية المرفوعة -->
             <div class="team-card">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" alt="Team Member" class="team-avatar">
+                <img src="ahmedabdelhamed.jpg" alt="Ahmed Abdelhamed" class="team-avatar">
                 <h3>أحمد عبدالحميد</h3>
                 <p class="role">Project Lead & Full-Stack Developer</p>
                 <p class="desc">مطور منصة ميزان، مسؤول عن هندسة الأنظمة، ربط قواعد البيانات، وتكامل واجهات الذكاء الاصطناعي.</p>
             </div>
-            <!-- العضو الثاني (يمكنك تعديل الاسم والصورة لاحقاً) -->
+            <!-- العضو الثاني -->
             <div class="team-card">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Team Member" class="team-avatar">
                 <h3>عضو الفريق</h3>
@@ -197,11 +206,10 @@
         const dict = {
             ar: {
                 logo_text: "منصة ميزان - MEEZAN",
-                enter_platform: "دخول المنصة",
+                enter_platform: "تسجيل الدخول",
                 hero_title: "منصة ميزان الرقمية (MEEZAN)",
                 hero_desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية. نحول بلاغات وشكاوى المواطنين إلى مؤشرات تحليلية دقيقة تدعم متخذ القرار.",
                 explore_dash: "📊 استكشف تحليلات الموازنة",
-                explore_citizen: "🚀 بوابة البلاغات الذكية",
                 f1_title: "🔍 شفافية الموازنة العامة",
                 f1_desc: "إمكانية استعراض مخصصات المحافظات والقطاعات المختلفة (صحة، تعليم، طرق) عبر بيانات تحليلية دقيقة.",
                 f2_title: "🤖 بلاغات مدعومة بالذكاء الاصطناعي",
@@ -215,11 +223,10 @@
             },
             en: {
                 logo_text: "MEEZAN Platform",
-                enter_platform: "Enter Platform",
+                enter_platform: "Sign In",
                 hero_title: "MEEZAN Digital Platform",
                 hero_desc: "The smart bridge connecting citizens to the state budget and development projects. We transform citizen reports into accurate analytical indicators.",
                 explore_dash: "📊 Explore Budget Analytics",
-                explore_citizen: "🚀 Citizen Portal",
                 f1_title: "🔍 Budget Transparency",
                 f1_desc: "Explore allocations across governorates and sectors (health, education, roads) through precise analytical data.",
                 f2_title: "🤖 AI-Powered Reporting",
@@ -256,4 +263,4 @@
         });
     </script>
 </body>
-</html>index.html
+</html>
