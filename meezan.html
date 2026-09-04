@@ -174,7 +174,7 @@
 
         <!-- قسم استعراض الموازنة والمشروعات للمنطقة -->
         <div class="card">
-            <h2>متابعة الموازنة والمشروعات حسب منطقتك</h2>
+            <h2>متابعة الموازنة والمشروعات حسب المحافظة</h2>
             <div class="form-group">
                 <label for="governorate">اختر المحافظة:</label>
                 <select id="governorate" onchange="updateData()">
@@ -183,29 +183,29 @@
                     <option value="giza">الجيزة</option>
                     <option value="alex">الإسكندرية</option>
                     <option value="dakahlia">الدقهلية</option>
-                    <option value="redsea">البحر الأحمر</option>
-                    <option value="beheira">البحيرة</option>
-                    <option value="fayoum">الفيوم</option>
-                    <option value="gharbiya">الغربية</option>
-                    <option value="ismailia">الإسماعيلية</option>
-                    <option value="menofia">الموفية</option>
-                    <option value="minya">المنيا</option>
-                    <option value="qaliubiya">القليوبية</option>
-                    options<option value="newvalley">الوادي الجديد</option>
                     <option value="sharqia">الشرقية</option>
-                    <option value="suez">السويس</option>
-                    <option value="aswan">أسوان</option>
-                    <option value="assiut">أسيوط</option>
-                    <option value="banisuewef">بني سويف</option>
-                    <option value="portsaid">بورسعيد</option>
-                    <option value="damietta">دمياط</option>
-                    <option value="dakahlia">جنوب سيناء</option>
-                    <option value="kafr_elsheikh">كفر الشيخ</option>
-                    <option value="matrouh">مطروح</option>
-                    <option value="qena">قنا</option>
-                    <option value="north_sinai">شمال سيناء</option>
+                    <option value="beheira">البحيرة</option>
+                    <option value="gharbiya">الغربية</option>
+                    <option value="qalyubia">القليوبية</option>
+                    <option value="minya">المنيا</option>
                     <option value="sohag">سوهاج</option>
+                    <option value="assiut">أسيوط</option>
+                    <option value="monufia">المنوفية</option>
+                    <option value="fayoum">الفيوم</option>
+                    <option value="qena">قنا</option>
+                    <option value="kafr_elsheikh">كفر الشيخ</option>
+                    <option value="beni_suef">بني سويف</option>
+                    <option value="aswan">أسوان</option>
+                    <option value="damietta">دمياط</option>
+                    <option value="ismailia">الإسماعيلية</option>
                     <option value="luxor">الأقصر</option>
+                    <option value="suez">السويس</option>
+                    <option value="portsaid">بورسعيد</option>
+                    <option value="matrouh">مطروح</option>
+                    <option value="north_sinai">شمال سيناء</option>
+                    <option value="red_sea">البحر الأحمر</option>
+                    <option value="new_valley">الوادي الجديد</option>
+                    <option value="south_sinai">جنوب سيناء</option>
                 </select>
             </div>
 
@@ -231,7 +231,7 @@
             <form id="reportForm" onsubmit="submitReport(event)">
                 <div class="form-group">
                     <label for="reportArea">المنطقة أو الحي بالتحديد:</label>
-                    <input type="text" id="reportArea" placeholder="مثال: شارع الهرم، الحي الأول..." required>
+                    <input type="text" id="reportArea" placeholder="مثال: الحي الأول، مركز المدينة..." required>
                 </div>
 
                 <div class="form-group">
@@ -255,15 +255,46 @@
     </div>
 
     <script>
+        // قاعدة بيانات مصغرة لربط كل محافظة بميزانياتها ونسب الإنجاز الخاصة بها
+        const governoratesData = {
+            "cairo": { edu: "720 مليون جنيه", health: "580 مليون جنيه", roads: "85%" },
+            "giza": { edu: "650 مليون جنيه", health: "490 مليون جنيه", roads: "80%" },
+            "alex": { edu: "480 مليون جنيه", health: "370 مليون جنيه", roads: "82%" },
+            "dakahlia": { edu: "420 مليون جنيه", health: "310 مليون جنيه", roads: "76%" },
+            "sharqia": { edu: "450 مليون جنيه", health: "330 مليون جنيه", roads: "75%" },
+            "beheira": { edu: "390 مليون جنيه", health: "290 مليون جنيه", roads: "73%" },
+            "gharbiya": { edu: "360 مليون جنيه", health: "270 مليون جنيه", roads: "79%" },
+            "qalyubia": { edu: "410 مليون جنيه", health: "300 مليون جنيه", roads: "78%" },
+            "minya": { edu: "380 مليون جنيه", health: "280 مليون جنيه", roads: "70%" },
+            "sohag": { edu: "370 مليون جنيه", health: "260 مليون جنيه", roads: "72%" },
+            "assiut": { edu: "350 مليون جنيه", health: "250 مليون جنيه", roads: "71%" },
+            "monufia": { edu: "340 مليون جنيه", health: "260 مليون جنيه", roads: "77%" },
+            "fayoum": { edu: "310 مليون جنيه", health: "230 مليون جنيه", roads: "68%" },
+            "qena": { edu: "320 مليون جنيه", health: "240 مليون جنيه", roads: "69%" },
+            "kafr_elsheikh": { edu: "300 مليون جنيه", health: "220 مليون جنيه", roads: "74%" },
+            "beni_suef": { edu: "290 مليون جنيه", health: "210 مليون جنيه", roads: "72%" },
+            "aswan": { edu: "250 مليون جنيه", health: "190 مليون جنيه", roads: "81%" },
+            "damietta": { edu: "240 مليون جنيه", health: "180 مليون جنيه", roads: "83%" },
+            "ismailia": { edu: "260 مليون جنيه", health: "200 مليون جنيه", roads: "84%" },
+            "luxor": { edu: "210 مليون جنيه", health: "160 مليون جنيه", roads: "86%" },
+            "suez": { edu: "220 مليون جنيه", health: "170 مليون جنيه", roads: "88%" },
+            "portsaid": { edu: "230 مليون جنيه", health: "180 مليون جنيه", roads: "90%" },
+            "matrouh": { edu: "190 مليون جنيه", health: "140 مليون جنيه", roads: "65%" },
+            "north_sinai": { edu: "180 مليون جنيه", health: "130 مليون جنيه", roads: "62%" },
+            "red_sea": { edu: "200 مليون جنيه", health: "150 مليون جنيه", roads: "87%" },
+            "new_valley": { edu: "160 مليون جنيه", health: "120 مليون جنيه", roads: "60%" },
+            "south_sinai": { edu: "170 مليون جنيه", health: "130 مليون جنيه", roads: "85%" }
+        };
+
         function updateData() {
             const gov = document.getElementById('governorate').value;
             const stats = document.getElementById('statsContainer');
             
-            if (gov) {
+            if (gov && governoratesData[gov]) {
                 stats.style.display = 'grid';
-                document.getElementById('eduBudget').innerText = "450 مليون جنيه";
-                document.getElementById('healthBudget').innerText = "320 مليون جنيه";
-                document.getElementById('roadsProgress').innerText = "78%";
+                document.getElementById('eduBudget').innerText = governoratesData[gov].edu;
+                document.getElementById('healthBudget').innerText = governoratesData[gov].health;
+                document.getElementById('roadsProgress').innerText = governoratesData[gov].roads;
             } else {
                 stats.style.display = 'none';
             }
