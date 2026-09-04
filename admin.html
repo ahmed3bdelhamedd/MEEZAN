@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ميزان - لوحة تحكم المسؤولين (Admin Dashboard)</title>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #10b981;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        .nav-links a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* كروت الإحصائيات العليا */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            border-right: 5px solid var(--accent-color);
+        }
+
+        .stat-card.warning {
+            border-right-color: var(--warning-color);
+        }
+
+        .stat-card.danger {
+            border-right-color: var(--danger-color);
+        }
+
+        .stat-card h3 {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* قسم الجداول والتحليلات */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .badge.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.low {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .insights-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .insights-box h4 {
+            color: #166534;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>لوحة تحكم المسؤولين - MEEZAN Decision Support</h1>
+            <div class="nav-links">
+                <a href="meezan.html">← بوابة المواطن</a>
+                <a href="index.html">تحليلات الموازنة</a>
+            </div>
+        </header>
+
+        <!-- إحصائيات عامة لتحويل الشكاوى لبيانات -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>إجمالي البلاغات الواردة</h3>
+                <div class="number">1,248</div>
+            </div>
+            <div class="stat-card warning">
+                <h3>أكثر القطاعات شكاوى</h3>
+                <div class="number" style="font-size: 1.4rem;">مياه وصرف صحي</div>
+            </div>
+            <div class="stat-card danger">
+                <h3>أعلى منطقة احتياجاً للموارد</h3>
+                <div class="number" style="font-size: 1.4rem;">حي الهرم (الجيزة)</div>
+            </div>
+            <div class="stat-card" style="border-right-color: #3b82f6;">
+                <h3>نسبة الاستجابة والحل</h3>
+                <div class="number">68%</div>
+            </div>
+        </div>
+
+        <!-- جدول أحدث البلاغات المصنفة بالـ AI -->
+        <div class="card">
+            <h2>متابعة البلاغات الواردة وتصنيفاتها الذكية</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>رقم البلاغ</th>
+                        <th>المنطقة / الحي</th>
+                        <th>وصف المشكلة</th>
+                        <th>تصنيف الـ AI</th>
+                        <th>الأولوية</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#MS-8021</td>
+                        <td>شارع الهرم، الجيزة</td>
+                        <td>كسر رئيسي في ماسورة مياه وتجمع للمياه</td>
+                        <td>مياه وصرف صحي</td>
+                        <td><span class="badge high">حرجة / عاجلة</span></td>
+                        <td>قيد الإجراء</td>
+                    </tr>
+                    <tr>
+                        <td>#MS-8020</td>
+                        <td>منشأة البكرى، القاهرة</td>
+                        <td>حفرة عميقة في الطريق تهدد السيارات</td>
+                        <td>طرق ومواصلات</td>
+                        <td><span class="badge medium">متوسطة</span></td>
+                        <td>تم التوجيه للحي</td>
+                    </tr>
+                    <tr>
+                        <td>#MS-8019</td>
+                        <td>المحلة الكبرى، الغربية</td>
+                        <td>عطل في أعمدة الإنارة لعدة شوارع فرعية</td>
+                        <td>كهرباء وإنارة</td>
+                        <td><span class="badge low">منخفضة</span></td>
+                        <td>تم الحل</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- رؤى وتوصيات لاتخاذ القرار المدعوم بالبيانات -->
+        <div class="card">
+            <h2>توصيات صانع القرار (Data-Driven Insights)</h2>
+            <div class="insights-box">
+                <h4>توجيه الموارد المقترح بناءً على كثافة الشكاوى:</h4>
+                <p>يُوصى بإعادة توجيه 15% من فائض ميزانية البنية التحتية الفرعية لقطاع <strong>مياه وصرف صحي</strong> في نطاق محافظة الجيزة (تحديداً قطاع الهرم) نظراً لتسجيل تكرار بلاغات بنسبة 42% خلال الشهر الحالي، مما يساهم في سد الاحتياج الفعلي للمواطنين بكفاءة عالية.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
