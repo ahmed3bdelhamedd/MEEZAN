@@ -84,14 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 <a href="dashboard.html" id="nav-dashboard" data-translate="nav_dashboard">تحليلات الموازنة</a>
                 <a href="meezan.html" id="nav-meezan" data-translate="nav_citizen">بوابة البلاغات الذكية</a>
                 <a href="admin.html" id="nav-admin" data-translate="nav_admin">لوحة المسؤولين</a>
-                <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">English 🌐</button>
+                <button class="lang-btn" onclick="togglePlatformLanguage()" id="langToggleBtn">English 🌐</button>
                 <a href="index.html" class="logout" data-translate="nav_logout">تسجيل الخروج</a>
             </div>
         </nav>
     `;
 
     document.body.insertAdjacentHTML('afterbegin', headerHTML);
-    applyLanguage(currentLang);
+    applyPlatformLanguage(currentLang);
 
     const currentPage = window.location.pathname.split("/").pop();
     if (currentPage === "dashboard.html") document.getElementById("nav-dashboard")?.classList.add("active");
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentPage === "admin.html") document.getElementById("nav-admin")?.classList.add("active");
 });
 
-const translations = {
+const globalTranslations = {
     ar: {
         brand: "منصة ميزان - MEEZAN",
         nav_dashboard: "تحليلات الموازنة",
@@ -118,22 +118,26 @@ const translations = {
     }
 };
 
-function toggleLanguage() {
+function togglePlatformLanguage() {
     let currentLang = localStorage.getItem('meezanLang') || 'ar';
     let newLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('meezanLang', newLang);
-    applyLanguage(newLang);
+    applyPlatformLanguage(newLang);
 }
 
-function applyLanguage(lang) {
+function applyPlatformLanguage(lang) {
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     document.documentElement.setAttribute('lang', lang);
+    
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
-        if (translations[lang] && translations[lang][key]) {
-            element.innerText = translations[lang][key];
+        if (globalTranslations[lang] && globalTranslations[lang][key]) {
+            element.innerText = globalTranslations[lang][key];
         }
     });
+
     const langBtn = document.getElementById('langToggleBtn');
-    if (langBtn) langBtn.innerText = translations[lang].langBtn;
+    if (langBtn) {
+        langBtn.innerText = globalTranslations[lang].langBtn;
+    }
 }
