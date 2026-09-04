@@ -38,9 +38,12 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03); border-right: 6px solid var(--accent-color); border: 1px solid #f1f5f9;
             transition: transform 0.3s;
         }
+        html[lang="en"] .stat-card { border-right: none; border-left: 6px solid var(--accent-color); }
         .stat-card:hover { transform: translateY(-4px); }
         .stat-card.warning { border-right-color: var(--warning-color); }
+        html[lang="en"] .stat-card.warning { border-left-color: var(--warning-color); }
         .stat-card.danger { border-right-color: var(--danger-color); }
+        html[lang="en"] .stat-card.danger { border-left-color: var(--danger-color); }
         .stat-card h3 { color: #64748b; font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; }
         .stat-card .number { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); }
         .card {
@@ -111,7 +114,6 @@
     </div>
 
     <script>
-        // دمج مفاتيح الترجمة الخاصة بلوحة المسؤولين مع القاموس العام الموجود في header.js
         if (typeof sharedDictionary !== 'undefined') {
             Object.assign(sharedDictionary.ar, {
                 admin_stat1: "إجمالي البلاغات الواردة",
