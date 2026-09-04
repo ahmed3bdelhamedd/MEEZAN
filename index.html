@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة المؤشرات التنفيذية الشاملة - الموازنة العامة المصرية</title>
-    <!-- إضافة الـ Favicon الخاص بوزارة المالية المصرية -->
+    
     <link rel="icon" type="image/png" href="https://www.mof.gov.eg/files/images/logo.png">
-    <!-- للـ Apple devices -->
     <link rel="apple-touch-icon" href="https://www.mof.gov.eg/files/images/logo.png">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -127,7 +127,6 @@
         </div>
 
         <div class="charts-grid">
-            <!-- الشارت الأول: تطور جميع السنين (الإيرادات والمصروفات) -->
             <div class="chart-card full-width">
                 <h2>📈 تطور الإيرادات والمصروفات خلال الـ 6 سنوات الماضية (مليار جنيه)</h2>
                 <div class="chart-container">
@@ -135,7 +134,6 @@
                 </div>
             </div>
 
-            <!-- الشارت الثاني: مقارنة بنود السنة المختارة -->
             <div class="chart-card">
                 <h2>📊 بنود الموازنة للسنة المختارة</h2>
                 <div class="chart-container">
@@ -143,7 +141,6 @@
                 </div>
             </div>
 
-            <!-- الشارت الثالث: هيكل المصروفات للسنة المختارة -->
             <div class="chart-card">
                 <h2>🥧 هيكل الإنفاق الأساسي (%)</h2>
                 <div class="chart-container">
@@ -235,50 +232,4 @@
 
             if (barChartInstance) barChartInstance.destroy();
             const barCtx = document.getElementById('barChart').getContext('2d');
-            barChartInstance = new Chart(barCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['الإيرادات', 'المصروفات', 'الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
-                    datasets: [{
-                        label: 'القيمة (مليار جنيه)',
-                        data: rawData,
-                        backgroundColor: ['#2E7D32', '#C62828', '#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { grid: { color: '#F1F5F9' } },
-                        x: { grid: { display: false } }
-                    }
-                }
-            });
-
-            if (doughnutChartInstance) doughnutChartInstance.destroy();
-            const pieCtx = document.getElementById('doughnutChart').getContext('2d');
-            doughnutChartInstance = new Chart(pieCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['الضرائب', 'فوائد الديون', 'الأجور', 'الدعم', 'الاستثمارات'],
-                    datasets: [{
-                        data: [yData['Tax'], yData['Debt'], yData['Wages'], yData['Subsidies'], yData['Investments']],
-                        backgroundColor: ['#1565C0', '#D84315', '#0277BD', '#6A1B9A', '#FF8F00'],
-                        borderWidth: 2,
-                        borderColor: '#FFFFFF'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 11 } } } }
-                }
-            });
-        }
-
-        window.onload = updateDashboard;
-    </script>
-</body>
-</html>
+            barChartInstance = new Chart(
