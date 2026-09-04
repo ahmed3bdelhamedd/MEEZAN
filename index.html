@@ -26,7 +26,24 @@
             align-items: center;
             padding: 20px;
             color: var(--text-main);
+            position: relative;
         }
+        .lang-float-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+        .lang-float-btn:hover { background: #f1f5f9; color: var(--accent); }
         @keyframes fadeInScale {
             from { opacity: 0; transform: scale(0.95) translateY(20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -78,50 +95,117 @@
 </head>
 <body>
 
+    <button class="lang-float-btn" onclick="toggleIndexLang()" id="indexLangBtn">English 🌐</button>
+
     <div class="login-container">
         <div class="login-banner">
-            <h1>⚖️ منصة ميزان</h1>
-            <p>الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.</p>
+            <h1 data-t="title">⚖️ منصة ميزان</h1>
+            <p data-t="desc">الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.</p>
             <ul class="features-list">
-                <li>✅ تتبع مخصصات وموازنات المحافظات لحظياً</li>
-                <li>✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي</li>
-                <li>✅ لوحة تحكم تفصيلية لصانعي القرار</li>
+                <li data-t="f1">✅ تتبع مخصصات وموازنات المحافظات لحظياً</li>
+                <li data-t="f2">✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي</li>
+                <li data-t="f3">✅ لوحة تحكم تفصيلية لصانعي القرار</li>
             </ul>
         </div>
 
         <div class="login-form-side">
-            <h2>تسجيل الدخول</h2>
-            <p class="subtitle">أدخل بياناتك للوصول إلى لوحات المنصة</p>
+            <h2 data-t="login_title">تسجيل الدخول</h2>
+            <p class="subtitle" data-t="login_sub">أدخل بياناتك للوصول إلى لوحات المنصة</p>
 
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
+                    <label for="email" data-t="email_label">البريد الإلكتروني</label>
                     <input type="email" id="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">كلمة المرور</label>
+                    <label for="password" data-t="pass_label">كلمة المرور</label>
                     <input type="password" id="password" placeholder="••••••••" required>
                 </div>
                 <div class="form-group">
-                    <label for="role">نوع الحساب / الدخول</label>
+                    <label for="role" data-t="role_label">نوع الحساب / الدخول</label>
                     <select id="role">
-                        <option value="citizen">مواطن (بوابة البلاغات والمشروعات)</option>
-                        <option value="admin">مسؤول / صانع قرار (لوحة التحكم)</option>
-                        <option value="analyst">محلل بيانات (تحليلات الموازنة)</option>
+                        <option value="citizen" data-t="opt_citizen">مواطن (بوابة البلاغات والمشروعات)</option>
+                        <option value="admin" data-t="opt_admin">مسؤول / صانع قرار (لوحة التحكم)</option>
+                        <option value="analyst" data-t="opt_analyst">محلل بيانات (تحليلات الموازنة)</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit">دخول للمنصة</button>
+                <button type="submit" class="btn-submit" data-t="submit_btn">دخول للمنصة</button>
             </form>
 
             <div class="guest-links">
-                تصفح مباشر: 
-                <a href="dashboard.html">التحليلات المالية</a> | 
-                <a href="meezan.html">بوابة المواطن</a>
+                <span data-t="direct_browse">تصفح مباشر:</span> 
+                <a href="dashboard.html" data-t="link_dash">التحليلات المالية</a> | 
+                <a href="meezan.html" data-t="link_citizen">بوابة المواطن</a>
             </div>
         </div>
     </div>
 
     <script>
+        const indexDict = {
+            ar: {
+                title: "⚖️ منصة ميزان",
+                desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية عبر تحليلات متقدمة.",
+                f1: "✅ تتبع مخصصات وموازنات المحافظات لحظياً",
+                f2: "✅ نظام بلاغات ذكي مدعوم بالذكاء الاصطناعي",
+                f3: "✅ لوحة تحكم تفصيلية لصانعي القرار",
+                login_title: "تسجيل الدخول",
+                login_sub: "أدخل بياناتك للوصول إلى لوحات المنصة",
+                email_label: "البريد الإلكتروني",
+                pass_label: "كلمة المرور",
+                role_label: "نوع الحساب / الدخول",
+                opt_citizen: "مواطن (بوابة البلاغات والمشروعات)",
+                opt_admin: "مسؤول / صانع قرار (لوحة التحكم)",
+                opt_analyst: "محلل بيانات (تحليلات الموازنة)",
+                submit_btn: "دخول للمنصة",
+                direct_browse: "تصفح مباشر:",
+                link_dash: "التحليلات المالية",
+                link_citizen: "بوابة المواطن",
+                btnText: "English 🌐"
+            },
+            en: {
+                title: "⚖️ MEEZAN Platform",
+                desc: "The smart bridge connecting citizens to the state budget and development projects through advanced analytics.",
+                f1: "✅ Track governorate allocations and budgets in real-time",
+                f2: "✅ AI-powered smart reporting system",
+                f3: "✅ Detailed decision-support dashboard",
+                login_title: "Sign In",
+                login_sub: "Enter your credentials to access the platform",
+                email_label: "Email Address",
+                pass_label: "Password",
+                role_label: "Account / Role Type",
+                opt_citizen: "Citizen (Reporting & Projects Portal)",
+                opt_admin: "Admin / Decision Maker (Dashboard)",
+                opt_analyst: "Data Analyst (Budget Analytics)",
+                submit_btn: "Login to Platform",
+                direct_browse: "Direct Browse:",
+                link_dash: "Financial Analytics",
+                link_citizen: "Citizen Portal",
+                btnText: "العربية 🌐"
+            }
+        };
+
+        function toggleIndexLang() {
+            let current = localStorage.getItem('meezanLang') || 'ar';
+            let next = current === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('meezanLang', next);
+            applyIndexLang(next);
+        }
+
+        function applyIndexLang(lang) {
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', lang);
+            document.querySelectorAll('[data-t]').forEach(el => {
+                let k = el.getAttribute('data-t');
+                if(indexDict[lang][k]) el.innerText = indexDict[lang][k];
+            });
+            document.getElementById('indexLangBtn').innerText = indexDict[lang].btnText;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let lang = localStorage.getItem('meezanLang') || 'ar';
+            applyIndexLang(lang);
+        });
+
         function handleLogin(event) {
             event.preventDefault();
             const role = document.getElementById('role').value;
