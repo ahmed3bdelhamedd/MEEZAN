@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentPage === "admin.html") document.getElementById("nav-admin")?.classList.add("active");
 });
 
+// القاموس الشامل لكل كلمات المنصة (الرئيسية، الهيدر، فريق العمل، التحليلات، البلاغات)
 const sharedDictionary = {
     ar: {
         brand: "منصة ميزان - MEEZAN",
@@ -106,7 +107,31 @@ const sharedDictionary = {
         nav_citizen: "بوابة البلاغات الذكية",
         nav_admin: "لوحة المسؤولين",
         nav_logout: "تسجيل الخروج",
-        langBtn: "English 🌐"
+        langBtn: "English 🌐",
+        
+        // الصفحة الرئيسية (index.html)
+        home_enter: "تسجيل الدخول",
+        hero_title: "منصة ميزان الرقمية (MEEZAN)",
+        hero_desc: "الجسر الذكي لربط المواطن بالموازنة العامة للدولة والمشروعات التنموية. نحول بلاغات وشكاوى المواطنين إلى مؤشرات تحليلية دقيقة تدعم متخذ القرار.",
+        explore_dash: "📊 استكشف تحليلات الموازنة",
+        explore_login: "🔐 تسجيل الدخول للوحة التحكم",
+        f1_title: "🔍 شفافية الموازنة العامة",
+        f1_desc: "إمكانية استعراض مخصصات المحافظات والقطاعات المختلفة (صحة، تعليم، طرق) عبر بيانات تحليلية دقيقة.",
+        f2_title: "🤖 بلاغات مدعومة بالذكاء الاصطناعي",
+        f2_desc: "نظام ذكي يستقبل بلاغات المواطنين، يصنفها تلقائياً، ويحدد مستويات الأولوية والخطورة لسرعة الاستجابة.",
+        f3_title: "📈 اتخاذ قرار مبني على البيانات",
+        f3_desc: "تحويل الشكاوى المتكررة إلى رؤى وإحصائيات تساعد الأجهزة التنفيذية في توجيه الموارد للمناطق الأكثر احتياجاً.",
+        
+        // فريق العمل
+        team_heading: "فريق العمل المطور للمشروع",
+        team_sub: "النخبة التقنية خلف تصميم وتطوير منصة ميزان",
+        member1_name: "أحمد عبدالحميد",
+        member1_role: "Project Lead & Full-Stack Developer",
+        member1_desc: "مطور منصة ميزان، مسؤول عن هندسة الأنظمة، ربط قواعد البيانات، وتكامل واجهات الذكاء الاصطناعي.",
+        member2_name: "بسملة محمد فوزي",
+        member2_role: "Data Analyst & UI/UX Designer",
+        member2_desc: "مسؤولة عن تحليل بيانات الموازنة العامة، تصميم واجهات المستخدم، وتحسين تجربة التفاعل.",
+        footer_text: "© 2026 منصة ميزان (MEEZAN) - جميع الحقوق محفوظة."
     },
     en: {
         brand: "MEEZAN Platform",
@@ -114,7 +139,31 @@ const sharedDictionary = {
         nav_citizen: "Citizen Portal",
         nav_admin: "Admin Dashboard",
         nav_logout: "Logout",
-        langBtn: "العربية 🌐"
+        langBtn: "العربية 🌐",
+        
+        // Homepage (index.html)
+        home_enter: "Sign In",
+        hero_title: "MEEZAN Digital Platform",
+        hero_desc: "The smart bridge connecting citizens to the state budget and development projects. We transform citizen reports into accurate analytical indicators.",
+        explore_dash: "📊 Explore Budget Analytics",
+        explore_login: "🔐 Admin Dashboard Login",
+        f1_title: "🔍 Budget Transparency",
+        f1_desc: "Explore allocations across governorates and sectors (health, education, roads) through precise analytical data.",
+        f2_title: "🤖 AI-Powered Reporting",
+        f2_desc: "Smart system receiving reports, automatically categorizing them, and assessing priority and severity levels.",
+        f3_title: "📈 Data-Driven Decisions",
+        f3_desc: "Converting recurring complaints into actionable insights helping executive bodies allocate resources effectively.",
+        
+        // Team
+        team_heading: "Project Development Team",
+        team_sub: "The tech minds behind the design and development of MEEZAN",
+        member1_name: "Ahmed Abdelhamed",
+        member1_role: "Project Lead & Full-Stack Developer",
+        member1_desc: "Platform Lead Developer, responsible for system architecture, database connectivity, and AI integration.",
+        member2_name: "Basmala M. Fawzi",
+        member2_role: "Data Analyst & UI/UX Designer",
+        member2_desc: "Responsible for budget data analysis, UI/UX design, and enhancing user interaction experience.",
+        footer_text: "© 2026 MEEZAN Platform - All Rights Reserved."
     }
 };
 
