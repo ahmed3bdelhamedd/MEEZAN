@@ -33,8 +33,8 @@
 
         .lang-float-btn {
             position: absolute;
-            top: 30px;
-            left: 30px;
+            top: 25px;
+            left: 25px;
             background: white;
             border: 1px solid #cbd5e1;
             padding: 8px 18px;
@@ -46,6 +46,10 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             transition: all 0.3s ease;
             z-index: 10;
+        }
+        html[dir="ltr"] .lang-float-btn {
+            left: auto;
+            right: 25px;
         }
         .lang-float-btn:hover { background: #f1f5f9; color: var(--accent); transform: translateY(-2px); }
 
@@ -70,22 +74,22 @@
         .login-banner {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 60px 50px;
+            padding: 60px 45px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        .login-banner h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 15px; }
-        .login-banner p { font-size: 1.1rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 30px; }
+        .login-banner h1 { font-size: 2.3rem; font-weight: 900; margin-bottom: 15px; }
+        .login-banner p { font-size: 1.05rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 25px; }
         
         .features-list { list-style: none; }
-        .features-list li { margin-bottom: 14px; font-size: 1rem; display: flex; align-items: center; gap: 12px; }
+        .features-list li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; color: #f1f5f9; }
 
-        .login-form-side { padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-        .login-form-side h2 { color: var(--primary); font-size: 1.6rem; margin-bottom: 5px; font-weight: 900; }
-        .login-form-side p.subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+        .login-form-side { padding: 45px; display: flex; flex-direction: column; justify-content: center; }
+        .login-form-side h2 { color: var(--primary); font-size: 1.5rem; margin-bottom: 5px; font-weight: 900; }
+        .login-form-side p.subtitle { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; }
 
-        .form-group { margin-bottom: 18px; }
+        .form-group { margin-bottom: 16px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.85rem; color: var(--primary); }
         
         /* حاوية حقل كلمة المرور مع زر العين */
@@ -96,7 +100,7 @@
         }
         .password-wrapper input {
             width: 100%;
-            padding: 12px 45px 12px 16px; /* مساحة لليسار أو اليمين لأيقونة العين */
+            padding: 12px 45px 12px 16px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             font-family: 'Cairo', sans-serif;
@@ -163,7 +167,7 @@
 
         .auth-switch {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 18px;
             font-size: 0.9rem;
             color: var(--text-muted);
         }
@@ -181,10 +185,40 @@
         }
         .back-home:hover { color: var(--primary); }
 
-        @media(max-width: 768px) { 
-            .login-container { grid-template-columns: 1fr; } 
-            .login-banner { padding: 40px 30px; }
-            .login-form-side { padding: 40px 30px; }
+        /* ==========================================================
+           📱 التجاوب الكامل لشاشات الموبايل والتابلت (Media Queries)
+           ========================================================== */
+        @media (max-width: 1024px) {
+            body { padding: 15px; }
+            .login-container { max-width: 900px; }
+        }
+
+        @media (max-width: 768px) { 
+            body { padding: 10px; }
+            .lang-float-btn {
+                top: 15px;
+                left: 15px;
+                padding: 6px 14px;
+                font-size: 0.85rem;
+            }
+            html[dir="ltr"] .lang-float-btn {
+                left: auto;
+                right: 15px;
+            }
+            .login-container { 
+                grid-template-columns: 1fr; 
+                margin-top: 40px;
+                border-radius: 20px;
+            } 
+            .login-banner { 
+                padding: 35px 25px; 
+                text-align: center;
+            }
+            .login-banner h1 { font-size: 1.8rem; }
+            .login-banner p { font-size: 0.95rem; margin-bottom: 20px; }
+            .features-list { display: inline-block; text-align: right; }
+            html[dir="ltr"] .features-list { text-align: left; }
+            .login-form-side { padding: 35px 25px; } 
         }
     </style>
 </head>
@@ -313,7 +347,7 @@
             const toggleBtn = document.getElementById('togglePassBtn');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleBtn.innerText = '🙈'; // تغيير الأيقونة عند الإظهار
+                toggleBtn.innerText = '🙈';
             } else {
                 passwordInput.type = 'password';
                 toggleBtn.innerText = '👁️';
