@@ -25,6 +25,7 @@
             padding: 0 25px 25px 25px;
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         .dashboard-container { max-width: 1400px; margin: 0 auto; }
         @keyframes fadeInUp {
@@ -63,6 +64,7 @@
         .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
         .kpi-card h3 { margin: 0; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
         .kpi-card .value { font-size: 26px; font-weight: 900; margin: 12px 0 0 0; color: var(--primary); }
+        
         .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
         .chart-card {
             background: var(--card-bg); padding: 25px; border-radius: 18px;
@@ -71,15 +73,62 @@
         }
         .chart-card:hover { transform: translateY(-3px); }
         .chart-card.full-width { grid-column: span 2; }
-        @media(max-width: 1024px) { 
-            .charts-grid { grid-template-columns: 1fr; }
-            .chart-card.full-width { grid-column: span 1; }
-        }
+        
         .chart-card h2 {
             font-size: 16px; color: var(--primary); margin-top: 0; margin-bottom: 20px;
             font-weight: 700; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px;
         }
-        .chart-container { position: relative; height: 350px; }
+        .chart-container { position: relative; height: 350px; width: 100%; }
+
+        /* ==========================================================
+           📱 التجاوب الكامل لشاشات الموبايل والتابلت (Media Queries)
+           ========================================================== */
+        @media (max-width: 1024px) {
+            body { padding: 0 15px 15px 15px; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .chart-card.full-width { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0 10px 10px 10px; }
+            .analytics-section-title {
+                font-size: 1.25rem;
+                padding-right: 10px;
+            }
+            .header-filter {
+                padding: 15px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filter-box {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .filter-box select {
+                width: 100%;
+            }
+            .kpi-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .kpi-card {
+                padding: 18px;
+            }
+            .kpi-card .value {
+                font-size: 22px;
+            }
+            .chart-card {
+                padding: 18px;
+            }
+            .chart-card h2 {
+                font-size: 14px;
+            }
+            .chart-container {
+                height: 280px;
+            }
+        }
     </style>
 </head>
 <body>
