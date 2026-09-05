@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 display: flex;
                 gap: 12px;
                 align-items: center;
-                flex-wrap: nowrap;
+                flex-wrap: wrap;
             }
             
             /* القائمة المنسدلة */
@@ -137,9 +137,44 @@ document.addEventListener("DOMContentLoaded", function () {
                 background: #fecaca;
             }
 
-            @media(max-width: 768px) {
-                .platform-global-header { padding: 12px 15px; flex-direction: column; gap: 15px; }
-                .platform-global-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            /* ==========================================================
+               📱 التجاوب الكامل لشاشات الموبايل والتابلت (Media Queries)
+               ========================================================== */
+            @media (max-width: 1024px) {
+                .platform-global-header {
+                    padding: 12px 20px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .platform-global-header {
+                    padding: 12px 15px;
+                    flex-direction: column;
+                    gap: 15px;
+                    border-radius: 0 0 14px 14px;
+                    margin-bottom: 20px;
+                }
+                .platform-global-logo {
+                    font-size: 1.2rem;
+                }
+                .platform-global-links {
+                    width: 100%;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                }
+                .dropbtn, .lang-btn, .logout-btn {
+                    padding: 7px 12px;
+                    font-size: 0.85rem;
+                    border-radius: 10px;
+                }
+                /* توسيط القائمة المنسدلة في الهواتف لضمان عدم خروجها عن الشاشة */
+                .dropdown-content {
+                    left: 50% !important;
+                    right: auto !important;
+                    transform: translateX(-50%);
+                    min-width: 200px;
+                }
             }
         </style>
 
